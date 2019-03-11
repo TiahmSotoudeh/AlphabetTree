@@ -12,6 +12,7 @@ import javax.swing.Timer;
 public class Driver extends JPanel implements ActionListener {
 	
 	Input input;
+	Tree tree;
 	
 	public void paint(Graphics g) {
 		int[] mouse = new int[2];
@@ -27,6 +28,7 @@ public class Driver extends JPanel implements ActionListener {
 	Timer t;
 	public Driver() {
 		input = new Input();
+		tree = new Tree();
 		
 		JFrame f = new JFrame();
 		f.setResizable(true);
