@@ -13,6 +13,10 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class Driver extends JPanel implements ActionListener {
 	
+	int[] mouse;
+	boolean leftClick;
+	boolean rightClick;
+	
 	Input input;
 	Tree tree;
 	Basket basket;
@@ -20,11 +24,16 @@ public class Driver extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
+
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 32));
 		g.drawString("Alphabet Tree!", 500, 500);
 		int[] mouse = new int[2];
+
 		mouse = input.getMouse();
+		leftClick = input.getLeft();
+		rightClick = input.getRight();
+		
 		tree.render(g);
 		basket.move(mouse);
 		basket.render(g);
@@ -32,7 +41,6 @@ public class Driver extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		repaint();
 	}
 	
