@@ -14,8 +14,8 @@ public class Letter {
 		return c;
 	}
 	
-	public void falling(Letter l) {
-		l.setY(l.getY()+5);
+	public void falling() {
+		y+=5;
 	}
 
 	public int getX() {
