@@ -59,10 +59,10 @@ public class Tree {
 	}
 	public Letter generateLetter(){
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
-		int index = (int) Math.random()*26;
+		int index = (int)(Math.random()*26);
 		char c = alphabet.charAt(index);
-		int x = (int) Math.random()*51;
-		int y = (int) Math.random()*51;
+		int x = (int)(Math.random()*51);
+		int y = (int)(Math.random()*51);
 		return new Letter(c, x, y);
 	}
 	
