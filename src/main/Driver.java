@@ -12,6 +12,10 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class Driver extends JPanel implements ActionListener {
 	
+	int[] mouse;
+	boolean leftClick;
+	boolean rightClick;
+	
 	Input input;
 	Tree tree;
 	Basket basket;
@@ -20,8 +24,10 @@ public class Driver extends JPanel implements ActionListener {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
 		
-		int[] mouse = new int[2];
 		mouse = input.getMouse();
+		leftClick = input.getLeft();
+		rightClick = input.getRight();
+		
 		tree.render(g);
 		basket.move(mouse);
 		basket.render(g);
