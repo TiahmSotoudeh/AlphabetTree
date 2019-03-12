@@ -7,22 +7,25 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class Tree {
 	
-	private Stack<Character> letters;
+	private Stack<Character> word;
 	private int wordValue;
 	private int treeX, treeY;
+	private List<Letter> letters;
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
 	private HashSet<String> dictionary = new HashSet<>();
 	
 	public Tree() {
-		letters = new Stack<>();
+		word = new Stack<>();
 		wordValue = 0;
 		treeX = 50;
 		treeY = 50;
+		letters = new ArrayList<>();
 		Scanner scan = null;
 		try {
 			scan = new Scanner(new File("src/resources/letter_values.txt"));
@@ -48,13 +51,13 @@ public class Tree {
 	}
 
 	public void push(char l) {
-		letters.push(l);
+		word.push(l);
 		wordValue += values.get(l);
 	}
 	
 	public void pop() {
-		if (!letters.isEmpty()) {
-			wordValue -= values.get(letters.pop());
+		if (!word.isEmpty()) {
+			wordValue -= values.get(word.pop());
 		}
 	}
 	public Letter generateLetter(){
@@ -64,6 +67,12 @@ public class Tree {
 		int x = (int)(Math.random()*51);
 		int y = (int)(Math.random()*51);
 		return new Letter(c, x, y);
+	}
+	
+	public void fall() {
+		for (Letter l : letters) {
+			l.falling();
+		}
 	}
 	
 	public void render(Graphics g) {

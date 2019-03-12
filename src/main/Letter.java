@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Graphics;
+
 public class Letter {
 	private int x, y;
 	private char c;
@@ -32,5 +34,9 @@ public class Letter {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void render(Graphics g) {
+		g.drawString(Character.toString(c), x, y);
 	}
 }
