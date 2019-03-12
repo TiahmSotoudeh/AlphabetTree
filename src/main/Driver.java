@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,9 @@ public class Driver extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
-		
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Helvetica", Font.PLAIN, 32));
+		g.drawString("Alphabet Tree!", 500, 500);
 		int[] mouse = new int[2];
 		mouse = input.getMouse();
 		tree.render(g);
