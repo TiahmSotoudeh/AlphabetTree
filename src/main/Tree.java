@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -9,7 +11,7 @@ import java.util.Stack;
 
 public class Tree {
 	
-	private Stack<Letter> letters;
+	private Stack<Character> letters;
 	private int wordValue;
 	
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
@@ -43,21 +45,23 @@ public class Tree {
 		scan.close();
 	}
 
-	public void push(Letter l) {
+	public void push(char l) {
 		letters.push(l);
+		wordValue += values.get(l);
 	}
 	
 	public void pop() {
 		if (!letters.isEmpty()) {
-			letters.pop();
+			wordValue -= values.get(letters.pop());
 		}
 	}
 	
-	public int calculateValue() {
-		int value = 0;
-		for (Letter l : letters) {
-			value += values.get(l.getChar());
-		}
-		return value;
+	public void render(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.drawLine(0, 0, 1920, 1080);
+	}
+	
+	public int getWordValue() {
+		return wordValue;
 	}
 }
