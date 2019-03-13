@@ -60,13 +60,14 @@ public class Tree {
 			wordValue -= values.get(word.pop());
 		}
 	}
-	public Letter generateLetter(){
+	
+	public void generateLetter() {
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		int index = (int)(Math.random()*26);
 		char c = alphabet.charAt(index);
 		int x = (int)(Math.random()*51);
 		int y = (int)(Math.random()*51);
-		return new Letter(c, x, y);
+		letters.add(new Letter(c, x, y));
 	}
 	
 	public void fall() {
@@ -78,6 +79,7 @@ public class Tree {
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
+		for (Letter l : letters) l.render(g);
 	}
 	
 	public int getWordValue() {
