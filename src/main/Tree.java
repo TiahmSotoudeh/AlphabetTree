@@ -17,6 +17,7 @@ public class Tree {
 	private int wordValue;
 	private int treeX, treeY;
 	private List<Letter> letters;
+	private int letterTimer = 60;
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
 	private HashSet<String> dictionary = new HashSet<>();
 	
@@ -66,10 +67,16 @@ public class Tree {
 	}
 	
 	public void generateLetter() {
-		char c = (char)((int)(Math.random() * 26) + 65);
-		int x = (int)(Math.random()*51);
-		int y = (int)(Math.random()*51);
-		letters.add(new Letter(c, x, y));
+		if (letterTimer > 0) {
+			letterTimer--;
+		} else {
+			char c = (char)((int)(Math.random() * 26) + 65);
+			int x = (int)(Math.random()*1921);
+			int y = (int)(Math.random()*51);
+			letters.add(new Letter(c, x, y));
+			letterTimer = 60;
+		}
+		
 	}
 	
 	public void fall() {
