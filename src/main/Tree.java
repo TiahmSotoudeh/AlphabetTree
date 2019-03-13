@@ -62,9 +62,7 @@ public class Tree {
 	}
 	
 	public void generateLetter() {
-		String alphabet = "abcdefghijklmnopqrstuvwxyz";
-		int index = (int)(Math.random()*26);
-		char c = alphabet.charAt(index);
+		char c = (char)((int)(Math.random() * 26) + 65);
 		int x = (int)(Math.random()*51);
 		int y = (int)(Math.random()*51);
 		letters.add(new Letter(c, x, y));
@@ -74,6 +72,7 @@ public class Tree {
 		for (Letter l : letters) {
 			l.falling();
 		}
+		letters.removeIf(l -> l.getY() > 1080);
 	}
 	
 	public void render(Graphics g) {
