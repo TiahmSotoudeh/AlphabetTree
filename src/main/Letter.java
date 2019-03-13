@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class Letter {
@@ -37,6 +38,7 @@ public class Letter {
 	}
 	
 	public void render(Graphics g) {
+		g.setFont(new Font("Helvetica", Font.BOLD, 32));
 		g.drawString(Character.toString(c), x, y);
 	}
 }
