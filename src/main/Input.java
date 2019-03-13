@@ -48,16 +48,22 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 			rightClick = true;
 		}
 	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
+	
+	private void moveMouse(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
 		mouse[0] = x;
 		mouse[1] = y;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		moveMouse(e);
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		moveMouse(e);
 	}
 
 	@Override
