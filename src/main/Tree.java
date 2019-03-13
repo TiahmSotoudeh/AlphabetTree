@@ -49,6 +49,10 @@ public class Tree {
 		
 		scan.close();
 	}
+	
+	public List<Letter> getLetterList(){
+		return letters;
+	}
 
 	public void push(char l) {
 		word.push(l);
