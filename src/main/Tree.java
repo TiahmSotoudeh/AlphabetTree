@@ -102,6 +102,16 @@ public class Tree {
 		return dictionary.contains(stackToString(word));
 	}
 	
+	public int submit() {
+		if (checkWord()) {
+			word.clear();
+			int temp = wordValue;
+			wordValue = 0;
+			return temp;
+		}
+		return 0;
+	}
+	
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
