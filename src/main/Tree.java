@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +37,7 @@ public class Tree {
 			System.exit(1);
 		}
 		while (scan.hasNext()) {
-			values.put(scan.next().charAt(0), scan.nextInt());
+			values.put(scan.next().toLowerCase().charAt(0), scan.nextInt());
 		}
 		
 		try {
@@ -86,10 +88,30 @@ public class Tree {
 		letters.removeIf(l -> l.getY() > 1080);
 	}
 	
+	private String stackToString(Stack<Character> stack) {
+		Character[] c = stack.toArray(new Character[0]);
+		String s = "";
+		for (char ch : c) {
+			s += ch;
+		}
+		return s;
+	}
+	
+	public boolean checkWord() {
+		if (word.size() <= 3) return false;
+		return dictionary.contains(stackToString(word));
+	}
+	
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
 		for (Letter l : letters) l.render(g);
+		
+		g.setFont(new Font("Helvetica", Font.BOLD, 60));
+		FontMetrics fm = g.getFontMetrics();
+		String s = stackToString(word);
+		int x = (1920 - fm.stringWidth(s))/2;
+		g.drawString(s, x, 1000);
 	}
 	
 	public int getWordValue() {

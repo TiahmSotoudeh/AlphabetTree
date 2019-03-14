@@ -46,7 +46,7 @@ public class Driver extends JPanel implements ActionListener {
 	}
 	
 	Timer t;
-	public Driver() {		
+	public Driver() {
 		JFrame f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
