@@ -25,13 +25,12 @@ public class Basket {
 		g.fillRect(x, y, width, height);
 	}
 	
-	public void checkBasketCollision(List<Letter> a) {
+	public void checkBasketCollision(List<Letter> a, Tree b) {
 		for(int i=0;i<a.size();i++) {
 			if(a.get(i).getX() < this.x + width && a.get(i).getX() > this.x && a.get(i).getY() < this.y + height && a.get(i).getY() > this.y ) {
+				b.push(a.get(i).getChar());
 				a.remove(i);
-				score++;
 			}
 		}
-		System.out.println(score);
 	}
 }
