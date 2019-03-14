@@ -102,9 +102,20 @@ public class Tree {
 		return dictionary.contains(stackToString(word));
 	}
 	
+	public int submit() {
+		if (checkWord()) {
+			word.clear();
+			int temp = wordValue;
+			wordValue = 0;
+			return temp;
+		}
+		return 0;
+	}
+	
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
+		
 		for (Letter l : letters) l.render(g);
 		
 		g.setFont(new Font("Helvetica", Font.BOLD, 60));
@@ -112,6 +123,11 @@ public class Tree {
 		String s = stackToString(word);
 		int x = (1920 - fm.stringWidth(s))/2;
 		g.drawString(s, x, 1000);
+		g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+		fm = g.getFontMetrics();
+		s = Integer.toString(wordValue);
+		x = (1920 - fm.stringWidth(s))/2;
+		g.drawString(s, x, 1040);
 	}
 	
 	public int getWordValue() {

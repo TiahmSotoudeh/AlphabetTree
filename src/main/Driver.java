@@ -14,8 +14,6 @@ import javax.swing.Timer;
 public class Driver extends JPanel implements ActionListener {
 	
 	int[] mouse = new int[2];
-	boolean leftClick;
-	boolean rightClick;
 	
 	Input input = new Input();
 	Tree tree = new Tree();
@@ -30,8 +28,12 @@ public class Driver extends JPanel implements ActionListener {
 		g.drawString("Alphabet Tree!", 500, 500);
 
 		mouse = input.getMouse();
-		leftClick = input.getLeft();
-		rightClick = input.getRight();
+		if (input.getLeft()) {
+			tree.submit();
+		}
+		if (input.getRight()) {
+			tree.pop();
+		}
 		
 		tree.generateLetter();
 		tree.fall();
