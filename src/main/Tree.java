@@ -16,7 +16,7 @@ import java.util.Stack;
 public class Tree {
 	
 	private Stack<Character> word;
-	private int wordValue;
+	private int wordValue, totalScore;
 	private int treeX, treeY;
 	private List<Letter> letters;
 	private int letterTimer = 60;
@@ -26,6 +26,7 @@ public class Tree {
 	public Tree() {
 		word = new Stack<>();
 		wordValue = 0;
+		totalScore = 0;
 		treeX = 50;
 		treeY = 50;
 		letters = new ArrayList<>();
@@ -107,11 +108,11 @@ public class Tree {
 			word.clear();
 			int temp = wordValue;
 			wordValue = 0;
+			totalScore+=temp;
 			return temp;
 		}
 		return 0;
 	}
-	
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
@@ -128,6 +129,11 @@ public class Tree {
 		s = "Word Score: " + Integer.toString(wordValue);
 		x = (1920 - fm.stringWidth(s))/2;
 		g.drawString(s, x, 1040);
+		g.setFont(new Font("Helvetica", Font.PLAIN, 72));
+		fm = g.getFontMetrics();
+		String total = "Total Score: " + Integer.toString(totalScore);
+		x = (1920 - fm.stringWidth(total))/2;
+		g.drawString(total, x, 100);
 	}
 	
 	public int getWordValue() {
