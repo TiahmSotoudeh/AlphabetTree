@@ -38,6 +38,7 @@ public class Driver extends JPanel implements ActionListener {
 		tree.render(g);
 		basket.move(mouse);
 		basket.render(g);
+		basket.checkBasketCollision(tree.getLetterList());
 	}
 	
 	@Override
