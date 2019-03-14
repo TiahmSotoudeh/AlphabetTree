@@ -113,7 +113,10 @@ public class Tree {
 		}
 		return 0;
 	}
-	public void render(Graphics g) {
+
+	
+	public void render(Graphics g, int screenWidth, int screenHeight) {
+
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
 		
@@ -122,18 +125,20 @@ public class Tree {
 		g.setFont(new Font("Helvetica", Font.BOLD, 60));
 		FontMetrics fm = g.getFontMetrics();
 		String s = stackToString(word).toUpperCase();
-		int x = (1920 - fm.stringWidth(s))/2;
-		g.drawString(s, x, 1000);
+		int x = (screenWidth - fm.stringWidth(s))/2;
+		g.drawString(s, x, screenHeight - 80);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 20));
 		fm = g.getFontMetrics();
 		s = "Word Score: " + Integer.toString(wordValue);
+
 		x = (1920 - fm.stringWidth(s))/2;
 		g.drawString(s, x, 1040);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 72));
 		fm = g.getFontMetrics();
 		String total = "Total Score: " + Integer.toString(totalScore);
-		x = (1920 - fm.stringWidth(total))/2;
-		g.drawString(total, x, 100);
+		x = (screenWidth - fm.stringWidth(s))/2;
+		g.drawString(s, x, screenHeight - 40);
+
 	}
 	
 	public int getWordValue() {
