@@ -132,12 +132,12 @@ public class Tree {
 		s = "Word Score: " + Integer.toString(wordValue);
 
 		x = (1920 - fm.stringWidth(s))/2;
-		g.drawString(s, x, 1040);
+		g.drawString(s, x, screenHeight -40);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 72));
 		fm = g.getFontMetrics();
 		String total = "Total Score: " + Integer.toString(totalScore);
 		x = (screenWidth - fm.stringWidth(s))/2;
-		g.drawString(s, x, screenHeight - 40);
+		g.drawString(total, x, 100);
 
 	}
 	
