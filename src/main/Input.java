@@ -11,9 +11,16 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 	private int[] mouse = new int[2];
 	private boolean leftClick;
 	private boolean rightClick;
+	private boolean spaceBar = false;
 	
 	public int[] getMouse() {
 		return mouse;
+	}
+	
+	public boolean getSpaceBar() {
+		boolean temp = spaceBar;
+		spaceBar=false;
+		return temp;
 	}
 	
 	public boolean getLeft() {
@@ -72,9 +79,14 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == 32) {
+			spaceBar =true;
+		}
+	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {}
+	public void keyTyped(KeyEvent e) {
+	}
 
 }

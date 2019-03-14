@@ -35,12 +35,17 @@ public class Driver extends JPanel implements ActionListener {
 			tree.pop();
 		}
 		
+		if(input.getSpaceBar()) {
+			tree.pop();	
+		}
+		
 		tree.generateLetter();
 		tree.fall();
 		tree.render(g);
 		basket.move(mouse);
 		basket.render(g);
 		basket.checkBasketCollision(tree.getLetterList(), tree);
+		
 	}
 	
 	@Override
