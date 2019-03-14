@@ -1,8 +1,10 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +16,9 @@ import javax.swing.Timer;
 public class Driver extends JPanel implements ActionListener {
 	
 	int[] mouse = new int[2];
+	
+	int screenWidth;
+	int screenHeight;
 	
 	Input input = new Input();
 	Tree tree = new Tree();
@@ -37,7 +42,7 @@ public class Driver extends JPanel implements ActionListener {
 		
 		tree.generateLetter();
 		tree.fall();
-		tree.render(g);
+		tree.render(g, screenWidth, screenHeight);
 		basket.move(mouse);
 		basket.render(g);
 		basket.checkBasketCollision(tree.getLetterList(), tree);
@@ -62,6 +67,10 @@ public class Driver extends JPanel implements ActionListener {
 		f.addKeyListener(input);
 		f.addMouseListener(input);
 		f.addMouseMotionListener(input);
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		screenWidth = screenSize.width;
+		screenHeight = screenSize.height;
 		
 		t = new Timer(1000/60, this);
 		t.start();
