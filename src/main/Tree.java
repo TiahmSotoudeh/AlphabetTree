@@ -120,12 +120,12 @@ public class Tree {
 		
 		g.setFont(new Font("Helvetica", Font.BOLD, 60));
 		FontMetrics fm = g.getFontMetrics();
-		String s = stackToString(word);
+		String s = stackToString(word).toUpperCase();
 		int x = (1920 - fm.stringWidth(s))/2;
 		g.drawString(s, x, 1000);
-		g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+		g.setFont(new Font("Helvetica", Font.PLAIN, 20));
 		fm = g.getFontMetrics();
-		s = Integer.toString(wordValue);
+		s = "Word Score: " + Integer.toString(wordValue);
 		x = (1920 - fm.stringWidth(s))/2;
 		g.drawString(s, x, 1040);
 	}

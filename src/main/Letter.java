@@ -38,7 +38,7 @@ public class Letter {
 	}
 	
 	public void render(Graphics g) {
-		g.setFont(new Font("Helvetica", Font.BOLD, 32));
+		g.setFont(new Font("Helvetica", Font.BOLD, 40));
 		g.drawString(Character.toString(c), x, y);
 	}
 }
