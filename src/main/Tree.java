@@ -22,6 +22,8 @@ public class Tree {
 	private int letterTimer = 60;
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
 	private HashSet<String> dictionary = new HashSet<>();
+	private int vowelTimer=2;
+	private ArrayList<Character> vowels = new ArrayList<Character>();
 	
 	public Tree() {
 		word = new Stack<>();
@@ -52,6 +54,13 @@ public class Tree {
 		}
 		
 		scan.close();
+		
+		vowels.add('a');
+		vowels.add('e');
+		vowels.add('i');
+		vowels.add('o');
+		vowels.add('u');
+		
 	}
 	
 	public List<Letter> getLetterList(){
@@ -69,12 +78,22 @@ public class Tree {
 		}
 	}
 	
+	private int check;
+	
 	public void generateLetter() {
 		if (letterTimer > 0) {
 			letterTimer--;
-		} else {
+		} else if(vowelTimer==0){
+			char c = vowels.get((int) (Math.random()*4));
+			c = Character.toUpperCase(c);
+			int x = (int)(Math.random()*1900);
+			int y = (int)(Math.random()*51);
+			letters.add(new Letter(c, x, y));
+			vowelTimer = 2;
+		}else {
+			vowelTimer--;
 			char c = (char)((int)(Math.random() * 26) + 65);
-			int x = (int)(Math.random()*1921);
+			int x = (int)(Math.random()*1900);
 			int y = (int)(Math.random()*51);
 			letters.add(new Letter(c, x, y));
 			letterTimer = 60;
