@@ -15,11 +15,13 @@ import java.util.Stack;
 
 public class Tree {
 	
+	private static final int LETTER_COOLDOWN = 60;
+	
 	private Stack<Character> word;
 	private int wordValue, totalScore;
 	private int treeX, treeY;
 	private List<Letter> letters;
-	private int letterTimer = 60;
+	private int letterTimer = LETTER_COOLDOWN;
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
 	private HashSet<String> dictionary = new HashSet<>();
 	
@@ -77,9 +79,8 @@ public class Tree {
 			int x = (int)(Math.random()*1921);
 			int y = (int)(Math.random()*51);
 			letters.add(new Letter(c, x, y));
-			letterTimer = 60;
+			letterTimer = LETTER_COOLDOWN;
 		}
-		
 	}
 	
 	public void fall() {
