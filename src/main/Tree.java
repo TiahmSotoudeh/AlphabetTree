@@ -79,9 +79,7 @@ public class Tree {
 			wordValue -= values.get(word.pop());
 		}
 	}
-	
-	private int check;
-	
+		
 	public void generateLetter() {
 		if (letterTimer > 0) {
 			letterTimer--;
@@ -138,6 +136,9 @@ public class Tree {
 		for (Letter l : letters) l.render(g);
 		
 		g.setFont(new Font("Helvetica", Font.BOLD, 60));
+		if (checkWord()) {
+			g.setFont(new Font("Helvetica", Font.BOLD|Font.ITALIC, 60));
+		}
 		FontMetrics fm = g.getFontMetrics();
 		String s = stackToString(word).toUpperCase();
 		int x = (screenWidth - fm.stringWidth(s))/2;
@@ -151,9 +152,9 @@ public class Tree {
 		
 		g.setFont(new Font("Helvetica", Font.PLAIN, 72));
 		fm = g.getFontMetrics();
-		String total = "Total Score: " + Integer.toString(totalScore);
+		s = "Total Score: " + Integer.toString(totalScore);
 		x = (screenWidth - fm.stringWidth(s))/2;
-		g.drawString(total, x, 100);
+		g.drawString(s, x, 100);
 	}
 	
 	public int getWordValue() {
