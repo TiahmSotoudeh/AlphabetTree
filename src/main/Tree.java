@@ -118,24 +118,19 @@ public class Tree {
 	}
 	
 	public boolean checkWord() {
-		if (word.size() <= 3) return false;
+		if (word.size() <= 2) return false;
 		return dictionary.contains(stackToString(word));
 	}
 	
-	public int submit() {
+	public void submit() {
 		if (checkWord()) {
 			word.clear();
-			int temp = wordValue;
+			totalScore += wordValue;
 			wordValue = 0;
-			totalScore+=temp;
-			return temp;
 		}
-		return 0;
 	}
-
 	
 	public void render(Graphics g, int screenWidth, int screenHeight) {
-
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
 		
@@ -146,18 +141,18 @@ public class Tree {
 		String s = stackToString(word).toUpperCase();
 		int x = (screenWidth - fm.stringWidth(s))/2;
 		g.drawString(s, x, screenHeight - 80);
+		
 		g.setFont(new Font("Helvetica", Font.PLAIN, 20));
 		fm = g.getFontMetrics();
 		s = "Word Score: " + Integer.toString(wordValue);
-
 		x = (1920 - fm.stringWidth(s))/2;
-		g.drawString(s, x, screenHeight -40);
+		g.drawString(s, x, screenHeight - 40);
+		
 		g.setFont(new Font("Helvetica", Font.PLAIN, 72));
 		fm = g.getFontMetrics();
 		String total = "Total Score: " + Integer.toString(totalScore);
 		x = (screenWidth - fm.stringWidth(s))/2;
 		g.drawString(total, x, 100);
-
 	}
 	
 	public int getWordValue() {
