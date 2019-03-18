@@ -29,8 +29,12 @@ public class Driver extends JPanel implements ActionListener {
 		g.fillRect(0, 0, 1920, 1080);
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 32));
+		if(!tree.getGameOver()) {
 		g.drawString("Alphabet Tree!", 500, 500);
-
+		basket.render(g);
+		tree.render(g, screenWidth, screenHeight);
+		}
+		
 		mouse = input.getMouse();
 		if (input.getLeft()) {
 			tree.submit();
@@ -45,12 +49,14 @@ public class Driver extends JPanel implements ActionListener {
 		
 		tree.generateLetter();
 		tree.fall();
-		tree.render(g, screenWidth, screenHeight);
 		tree.checkLetters();
 		basket.move(mouse);
-		basket.render(g);
 		basket.checkBasketCollision(tree.getLetterList(), tree);
 		
+		
+		if(tree.getGameOver()) {
+			g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
+		}
 	}
 	
 	@Override

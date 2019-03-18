@@ -138,7 +138,7 @@ public class Tree {
 	}
 	
 	public void checkLetters(){
-		if(lettersGenerated>=60) {
+		if(lettersGenerated>=100) {
 			if(stagepoints<10) {
 				gameOver = true;
 			}else {
@@ -182,6 +182,10 @@ public class Tree {
 
 	public int getStagepoints() {
 		return stagepoints;
+	}
+	
+	public boolean getGameOver() {
+		return gameOver;
 	}
 
 }
