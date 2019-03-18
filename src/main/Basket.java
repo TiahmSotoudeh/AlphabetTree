@@ -7,7 +7,7 @@ import java.util.List;
 public class Basket {
 	
 	private int x, y;
-	private int width = 100, height = 50;
+	private int width = 65, height = 30;
 	public int score;
 
 	public Basket() {
