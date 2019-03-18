@@ -26,6 +26,9 @@ public class Tree {
 	private HashSet<String> dictionary = new HashSet<>();
 	private int vowelTimer=2;
 	private ArrayList<Character> vowels = new ArrayList<Character>();
+	private int lettersGenerated;
+	private int stagepoints;
+	private boolean gameOver;
 	
 	public Tree() {
 		word = new Stack<>();
@@ -81,22 +84,26 @@ public class Tree {
 	}
 		
 	public void generateLetter() {
-		if (letterTimer > 0) {
-			letterTimer--;
-		} else if(vowelTimer==0){
-			char c = vowels.get((int) (Math.random()*4));
-			c = Character.toUpperCase(c);
-			int x = (int)(Math.random()*1900);
-			int y = (int)(Math.random()*51);
-			letters.add(new Letter(c, x, y));
-			vowelTimer = 2;
-		}else {
-			vowelTimer--;
-			char c = (char)((int)(Math.random() * 26) + 65);
-			int x = (int)(Math.random()*1900);
-			int y = (int)(Math.random()*51);
-			letters.add(new Letter(c, x, y));
-			letterTimer = LETTER_COOLDOWN;
+		if(lettersGenerated<100) {
+			if (letterTimer > 0) {
+				letterTimer--;
+			} else if(vowelTimer==0){
+				char c = vowels.get((int) (Math.random()*4));
+				c = Character.toUpperCase(c);
+				int x = (int)(Math.random()*600)+600;
+				int y = (int)(Math.random()*51);
+				letters.add(new Letter(c, x, y));
+				vowelTimer = 2;
+				lettersGenerated++;
+			}else {
+				vowelTimer--;
+				char c = (char)((int)(Math.random() * 26) + 65);
+				int x = (int)(Math.random()*600)+600;
+				int y = (int)(Math.random()*51);
+				letters.add(new Letter(c, x, y));
+				letterTimer = LETTER_COOLDOWN;
+				lettersGenerated++;
+			}
 		}
 	}
 	
@@ -125,7 +132,19 @@ public class Tree {
 		if (checkWord()) {
 			word.clear();
 			totalScore += wordValue;
+			stagepoints += wordValue;
 			wordValue = 0;
+		}
+	}
+	
+	public void checkLetters(){
+		if(lettersGenerated>=60) {
+			if(stagepoints<10) {
+				gameOver = true;
+			}else {
+				gameOver = false;
+				lettersGenerated = 0;
+			}
 		}
 	}
 	
@@ -160,4 +179,9 @@ public class Tree {
 	public int getWordValue() {
 		return wordValue;
 	}
+
+	public int getStagepoints() {
+		return stagepoints;
+	}
+
 }

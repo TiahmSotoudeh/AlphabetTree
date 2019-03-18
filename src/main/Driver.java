@@ -27,7 +27,6 @@ public class Driver extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
-
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 32));
 		g.drawString("Alphabet Tree!", 500, 500);
@@ -47,6 +46,7 @@ public class Driver extends JPanel implements ActionListener {
 		tree.generateLetter();
 		tree.fall();
 		tree.render(g, screenWidth, screenHeight);
+		tree.checkLetters();
 		basket.move(mouse);
 		basket.render(g);
 		basket.checkBasketCollision(tree.getLetterList(), tree);
