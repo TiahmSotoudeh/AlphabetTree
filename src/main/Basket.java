@@ -25,10 +25,12 @@ public class Basket {
 		g.fillRect(x, y, width, height);
 	}
 	
-	public void checkBasketCollision(List<Letter> a, Tree b) {
-		for(int i=0;i<a.size();i++) {
-			if(a.get(i).getX() < this.x + width && a.get(i).getX() > this.x && a.get(i).getY() < this.y + height && a.get(i).getY() > this.y ) {
-				b.push(Character.toLowerCase(a.get(i).getChar()));
+	public void checkBasketCollision(Tree b) {
+		List<Letter> a = b.getLetterList();
+		for (int i = 0; i < a.size(); i++) {
+			Letter l = a.get(i);
+			if(l.getX() < this.x + width && l.getX() > this.x && l.getY() < this.y + height && l.getY() > this.y ) {
+				b.push(l.getChar());
 				a.remove(i);
 			}
 		}

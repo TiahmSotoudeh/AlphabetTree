@@ -28,10 +28,6 @@ public class Driver extends JPanel implements ActionListener {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
 
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Helvetica", Font.PLAIN, 32));
-		g.drawString("Alphabet Tree!", 500, 500);
-
 		mouse = input.getMouse();
 		if (input.getLeft()) {
 			tree.submit();
@@ -39,7 +35,6 @@ public class Driver extends JPanel implements ActionListener {
 		if (input.getRight()) {
 			tree.pop();
 		}
-		
 		if(input.getSpaceBar()) {
 			tree.pop();	
 		}
@@ -49,8 +44,7 @@ public class Driver extends JPanel implements ActionListener {
 		tree.render(g, screenWidth, screenHeight);
 		basket.move(mouse);
 		basket.render(g);
-		basket.checkBasketCollision(tree.getLetterList(), tree);
-		
+		basket.checkBasketCollision(tree);
 	}
 	
 	@Override

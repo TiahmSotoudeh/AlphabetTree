@@ -3,7 +3,7 @@ package main;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class Letter {
+public class Letter {	
 	private int x, y;
 	private char c;
 	

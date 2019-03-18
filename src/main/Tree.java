@@ -24,8 +24,8 @@ public class Tree {
 	private int letterTimer = LETTER_COOLDOWN;
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
 	private HashSet<String> dictionary = new HashSet<>();
-	private int vowelTimer=2;
-	private ArrayList<Character> vowels = new ArrayList<Character>();
+	private int vowelTimer = 2;
+	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
 	
 	public Tree() {
 		word = new Stack<>();
@@ -42,7 +42,7 @@ public class Tree {
 			System.exit(1);
 		}
 		while (scan.hasNext()) {
-			values.put(scan.next().toLowerCase().charAt(0), scan.nextInt());
+			values.put(scan.next().charAt(0), scan.nextInt());
 		}
 		
 		try {
@@ -52,17 +52,10 @@ public class Tree {
 			System.exit(1);
 		}
 		while (scan.hasNext()) {
-			dictionary.add(scan.next());
+			dictionary.add(scan.next().toUpperCase());
 		}
 		
 		scan.close();
-		
-		vowels.add('a');
-		vowels.add('e');
-		vowels.add('i');
-		vowels.add('o');
-		vowels.add('u');
-		
 	}
 	
 	public List<Letter> getLetterList(){
@@ -79,13 +72,12 @@ public class Tree {
 			wordValue -= values.get(word.pop());
 		}
 	}
-		
+	
 	public void generateLetter() {
 		if (letterTimer > 0) {
 			letterTimer--;
-		} else if(vowelTimer==0){
-			char c = vowels.get((int) (Math.random()*4));
-			c = Character.toUpperCase(c);
+		} else if (vowelTimer == 0) {
+			char c = vowels[(int)(Math.random() * vowels.length)];
 			int x = (int)(Math.random()*1900);
 			int y = (int)(Math.random()*51);
 			letters.add(new Letter(c, x, y));
@@ -140,7 +132,7 @@ public class Tree {
 			g.setFont(new Font("Helvetica", Font.BOLD|Font.ITALIC, 60));
 		}
 		FontMetrics fm = g.getFontMetrics();
-		String s = stackToString(word).toUpperCase();
+		String s = stackToString(word);
 		int x = (screenWidth - fm.stringWidth(s))/2;
 		g.drawString(s, x, screenHeight - 80);
 		
