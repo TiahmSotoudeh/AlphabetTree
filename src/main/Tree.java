@@ -25,13 +25,18 @@ public class Tree {
 	private HashSet<String> dictionary = new HashSet<>();
 	private int vowelTimer = 2;
 	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
+	private int levelCap;
+	private int lettersGenerated;
 	
 	public Tree() {
 		word = new Stack<>();
+		levelCap = 10;
 		wordValue = 0;
 		totalScore = 0;
 		letters = new ArrayList<>();
 		Scanner scan = null;
+		lettersGenerated=0;
+		
 		try {
 			scan = new Scanner(new File("src/resources/letter_values.txt"));
 		} catch (FileNotFoundException e) {
@@ -70,25 +75,26 @@ public class Tree {
 		}
 	}
 	
-	public boolean generateLetter() {
-		if (letterTimer > 0) {
-			letterTimer--;
-			return false;
-		} else if (vowelTimer == 0) {
-			char c = vowels[(int)(Math.random() * vowels.length)];
-			int x = (int)(Math.random()*1900);
-			int y = (int)(Math.random()*51);
-			letters.add(new Letter(c, x, y));
-			vowelTimer = 2;
-			return false;
-		} else {
-			vowelTimer--;
-			char c = (char)((int)(Math.random() * 26) + 65);
-			int x = (int)(Math.random()*1900);
-			int y = (int)(Math.random()*51);
-			letters.add(new Letter(c, x, y));
-			letterTimer = LETTER_COOLDOWN;
-			return true;
+	public void generateLetter() {
+		if(lettersGenerated<levelCap) {
+			if (letterTimer > 0) {
+				letterTimer--;
+			} else if (vowelTimer == 0) {
+				char c = vowels[(int)(Math.random() * vowels.length)];
+				int x = (int)(Math.random()*1900);
+				int y = (int)(Math.random()*51);
+				letters.add(new Letter(c, x, y));
+				vowelTimer = 2;
+				lettersGenerated++;
+			} else {
+				vowelTimer--;
+				char c = (char)((int)(Math.random() * 26) + 65);
+				int x = (int)(Math.random()*1900);
+				int y = (int)(Math.random()*51);
+				letters.add(new Letter(c, x, y));
+				letterTimer = LETTER_COOLDOWN;
+				lettersGenerated++;
+			}
 		}
 	}
 	
@@ -142,13 +148,31 @@ public class Tree {
 		g.setFont(new Font("Helvetica", Font.PLAIN, 20));
 		fm = g.getFontMetrics();
 		s = "Word Score: " + Integer.toString(wordValue);
-		x = (1920 - fm.stringWidth(s))/2;
+		x = (screenWidth - fm.stringWidth(s))/2;
 		g.drawString(s, x, screenHeight - 40);
+		
+		g.setFont(new Font("Helvetica", Font.PLAIN, 20));
+		fm = g.getFontMetrics();
+		s = "Letters Left: " + Integer.toString(levelCap-lettersGenerated);
+		x = (screenWidth/10 - fm.stringWidth(s));
+		g.drawString(s, x, screenHeight - (screenHeight*7)/8);
 		
 		g.setFont(new Font("Helvetica", Font.PLAIN, 72));
 		fm = g.getFontMetrics();
 		s = "Total Score: " + Integer.toString(totalScore);
 		x = (screenWidth - fm.stringWidth(s))/2;
 		g.drawString(s, x, 100);
+	}
+
+	public int getLevelCap() {
+		return levelCap;
+	}
+
+	public void setLevelCap(int levelCap) {
+		this.levelCap = levelCap;
+	}
+	
+	public int getLettersGenerated() {
+		return lettersGenerated;
 	}
 }

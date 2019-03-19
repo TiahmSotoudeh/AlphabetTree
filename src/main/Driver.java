@@ -22,12 +22,12 @@ public class Driver extends JPanel implements ActionListener {
 	
 	private int stageScore = 0;
 	
-	private int lettersGenerated = 0;
 	private boolean gameOver = false;
 	
 	private Input input = new Input();
 	private Tree tree = new Tree();
 	private Basket basket = new Basket();
+	private int gracePeriod = 120;
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
@@ -49,20 +49,20 @@ public class Driver extends JPanel implements ActionListener {
 				tree.pop();	
 			}
 			
-			if (tree.generateLetter()) {
-				lettersGenerated++;
-			}
 			
 			tree.fall();
 			basket.move(mouse);
 			basket.checkBasketCollision(tree);
-			
+			tree.generateLetter();
 			basket.render(g);
 			tree.render(g, screenWidth, screenHeight);
 			
-			if (lettersGenerated >= 100) {
+			if (tree.getLettersGenerated() >= tree.getLevelCap()) {
 				if (stageScore < 10) {
-					gameOver = true;
+					gracePeriod--;
+					if(gracePeriod==0) {
+						gameOver = true;
+					}
 				}
 			}
 		}
@@ -100,4 +100,5 @@ public class Driver extends JPanel implements ActionListener {
 		@SuppressWarnings("unused")
 		Driver d = new Driver();
 	}
+	
 }
