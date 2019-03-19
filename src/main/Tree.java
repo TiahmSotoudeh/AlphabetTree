@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,8 +15,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-public class Tree {
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+
+public class Tree implements ImageObserver {
 	
 	private static final int LETTER_COOLDOWN = 60;
 	
@@ -23,7 +33,9 @@ public class Tree {
 	private int letterTimer = LETTER_COOLDOWN;
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
 	private HashSet<String> dictionary = new HashSet<>();
-	private int vowelTimer = 2;
+
+	private int vowelTimer=2;
+	private ArrayList<BufferedImage> trees;
 	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
 	private int levelCap;
 	private int lettersGenerated;
@@ -58,6 +70,30 @@ public class Tree {
 		}
 		
 		scan.close();
+		
+		
+		BufferedImage one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen;
+		try {
+			one = ImageIO.read(new File("src/resources/Growing_Tree1.png"));
+			two = ImageIO.read(new File("src/resources/Growing_Tree2.png"));
+			three = ImageIO.read(new File("src/resources/Budding_Tree.png"));
+			four = ImageIO.read(new File("src/resources/Flowered_Tree.png"));
+			five = ImageIO.read(new File("src/resources/Apple_Tree.png"));
+			six = ImageIO.read(new File("src/resources/Fall_Tree1.png"));
+			seven = ImageIO.read(new File("src/resources/Fall_Tree2.png"));
+			eight = ImageIO.read(new File("src/resources/Fall_Tree3.png"));
+			nine = ImageIO.read(new File("src/resources/Fall_Tree4.png"));
+			ten = ImageIO.read(new File("src/resources/Fall_Tree5.png"));
+			eleven = ImageIO.read(new File("src/resources/Fall_Tree6.png"));
+			twelve = ImageIO.read(new File("src/resources/Fall_Tree7.png"));
+			thirteen = ImageIO.read(new File("src/resources/Leafless_Tree.png"));
+			trees.add(one); trees.add(two); trees.add(three); trees.add(four); trees.add(five); trees.add(six); trees.add(seven);
+			trees.add(eight); trees.add(nine); trees.add(ten); trees.add(eleven); trees.add(twelve); trees.add(thirteen);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public List<Letter> getLetterList(){
@@ -130,6 +166,17 @@ public class Tree {
 		return 0;
 	}
 	
+	public BufferedImage resize(Graphics g, BufferedImage img, double scale) {
+		BufferedImage result = new BufferedImage((int) (img.getWidth() * scale),
+                (int) (img.getHeight() * scale), BufferedImage.TYPE_INT_ARGB);
+		
+		return result;		
+	}
+	
+	public BufferedImage changeTree(int day) {
+		return trees.get(day);
+	}
+	
 	public void render(Graphics g, int screenWidth, int screenHeight) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 1920, 1080);
@@ -140,6 +187,7 @@ public class Tree {
 		if (checkWord()) {
 			g.setFont(new Font("Helvetica", Font.BOLD|Font.ITALIC, 60));
 		}
+
 		FontMetrics fm = g.getFontMetrics();
 		String s = stackToString(word);
 		int x = (screenWidth - fm.stringWidth(s))/2;
@@ -174,5 +222,11 @@ public class Tree {
 	
 	public int getLettersGenerated() {
 		return lettersGenerated;
+	}
+
+	@Override
+	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
