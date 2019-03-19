@@ -17,42 +17,57 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class Driver extends JPanel implements ActionListener {
 	
-	int[] mouse = new int[2];
+	private int[] mouse = new int[2];
 	
-	int screenWidth;
-	int screenHeight;
+	private int screenWidth;
+	private int screenHeight;
 	
-	Input input = new Input();
-	Tree tree = new Tree();
-	Basket basket = new Basket();
+	private int stageScore = 0;
+	
+	private boolean gameOver = false;
+	
+	private Input input = new Input();
+	private Tree tree = new Tree();
+	private Basket basket = new Basket();
+	private int gracePeriod = 120;
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
-
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Helvetica", Font.PLAIN, 32));
-		g.drawString("Alphabet Tree!", 500, 500);
-
-		mouse = input.getMouse();
-		if (input.getLeft()) {
-			tree.submit();
-		}
-		if (input.getRight()) {
-			tree.pop();
-		}
 		
-		if(input.getSpaceBar()) {
-			tree.pop();	
+		if (gameOver) {
+			g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+			g.setColor(Color.BLACK);
+			g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
+		} else {
+			mouse = input.getMouse();
+			if (input.getLeft()) {
+				stageScore += tree.submit();
+			}
+			if (input.getRight()) {
+				tree.pop();
+			}
+			if(input.getSpaceBar()) {
+				tree.pop();	
+			}
+			
+			
+			tree.fall();
+			basket.move(mouse);
+			basket.checkBasketCollision(tree);
+			tree.generateLetter();
+			basket.render(g);
+			tree.render(g, screenWidth, screenHeight);
+			
+			if (tree.getLettersGenerated() >= tree.getLevelCap()) {
+				if (stageScore < 10) {
+					gracePeriod--;
+					if(gracePeriod==0) {
+						gameOver = true;
+					}
+				}
+			}
 		}
-
-		tree.generateLetter();
-		tree.fall();
-		tree.render(g, screenWidth, screenHeight);
-		basket.move(mouse);
-		basket.render(g);
-		basket.checkBasketCollision(tree.getLetterList(), tree);
-		
 	}
 	
 	@Override
@@ -88,4 +103,5 @@ public class Driver extends JPanel implements ActionListener {
 		Driver d = new Driver();
 		
 	}
+	
 }

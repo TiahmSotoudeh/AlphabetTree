@@ -19,7 +19,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 	
 	public boolean getSpaceBar() {
 		boolean temp = spaceBar;
-		spaceBar=false;
+		spaceBar = false;
 		return temp;
 	}
 	
