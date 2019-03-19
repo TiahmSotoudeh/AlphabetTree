@@ -30,7 +30,7 @@ public class Tree {
 	
 	public Tree() {
 		word = new Stack<>();
-		levelCap = 10;
+		levelCap = 100;
 		wordValue = 0;
 		totalScore = 0;
 		letters = new ArrayList<>();
@@ -81,7 +81,7 @@ public class Tree {
 				letterTimer--;
 			} else if (vowelTimer == 0) {
 				char c = vowels[(int)(Math.random() * vowels.length)];
-				int x = (int)(Math.random()*1900);
+				int x = (int)(Math.random()*500);
 				int y = (int)(Math.random()*51);
 				letters.add(new Letter(c, x, y));
 				vowelTimer = 2;
@@ -89,7 +89,7 @@ public class Tree {
 			} else {
 				vowelTimer--;
 				char c = (char)((int)(Math.random() * 26) + 65);
-				int x = (int)(Math.random()*1900);
+				int x = (int)(Math.random()*500)+300;
 				int y = (int)(Math.random()*51);
 				letters.add(new Letter(c, x, y));
 				letterTimer = LETTER_COOLDOWN;
