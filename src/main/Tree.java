@@ -19,23 +19,17 @@ public class Tree {
 	
 	private Stack<Character> word;
 	private int wordValue, totalScore;
-	private int treeX, treeY;
 	private List<Letter> letters;
 	private int letterTimer = LETTER_COOLDOWN;
 	private HashMap <Character, Integer> values = new HashMap<Character, Integer>();
 	private HashSet<String> dictionary = new HashSet<>();
 	private int vowelTimer = 2;
 	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
-	private int lettersGenerated;
-	private int stagepoints;
-	private boolean gameOver;
 	
 	public Tree() {
 		word = new Stack<>();
 		wordValue = 0;
 		totalScore = 0;
-		treeX = 50;
-		treeY = 50;
 		letters = new ArrayList<>();
 		Scanner scan = null;
 		try {
@@ -76,25 +70,25 @@ public class Tree {
 		}
 	}
 	
-	public void generateLetter() {
-		if (lettersGenerated < 100) {
-			if (letterTimer > 0) {
-				letterTimer--;
-			} else if (vowelTimer == 0) {
-				char c = vowels[(int)(Math.random() * vowels.length)];
-				int x = (int)(Math.random()*1900);
-				int y = (int)(Math.random()*51);
-				letters.add(new Letter(c, x, y));
-				vowelTimer = 2;
-			} else {
-				vowelTimer--;
-				char c = (char)((int)(Math.random() * 26) + 65);
-				int x = (int)(Math.random()*1900);
-				int y = (int)(Math.random()*51);
-				letters.add(new Letter(c, x, y));
-				letterTimer = LETTER_COOLDOWN;
-				lettersGenerated++;
-			}
+	public boolean generateLetter() {
+		if (letterTimer > 0) {
+			letterTimer--;
+			return false;
+		} else if (vowelTimer == 0) {
+			char c = vowels[(int)(Math.random() * vowels.length)];
+			int x = (int)(Math.random()*1900);
+			int y = (int)(Math.random()*51);
+			letters.add(new Letter(c, x, y));
+			vowelTimer = 2;
+			return false;
+		} else {
+			vowelTimer--;
+			char c = (char)((int)(Math.random() * 26) + 65);
+			int x = (int)(Math.random()*1900);
+			int y = (int)(Math.random()*51);
+			letters.add(new Letter(c, x, y));
+			letterTimer = LETTER_COOLDOWN;
+			return true;
 		}
 	}
 	
@@ -119,24 +113,15 @@ public class Tree {
 		return dictionary.contains(stackToString(word));
 	}
 	
-	public void submit() {
+	public int submit() {
 		if (checkWord()) {
 			word.clear();
 			totalScore += wordValue;
-			stagepoints += wordValue;
+			int temp = wordValue;
 			wordValue = 0;
+			return temp;
 		}
-	}
-	
-	public void checkLetters(){
-		if(lettersGenerated>=100) {
-			if(stagepoints<10) {
-				gameOver = true;
-			}else {
-				gameOver = false;
-				lettersGenerated = 0;
-			}
-		}
+		return 0;
 	}
 	
 	public void render(Graphics g, int screenWidth, int screenHeight) {
@@ -166,17 +151,4 @@ public class Tree {
 		x = (screenWidth - fm.stringWidth(s))/2;
 		g.drawString(s, x, 100);
 	}
-	
-	public int getWordValue() {
-		return wordValue;
-	}
-
-	public int getStagepoints() {
-		return stagepoints;
-	}
-	
-	public boolean getGameOver() {
-		return gameOver;
-	}
-
 }

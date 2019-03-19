@@ -15,43 +15,56 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class Driver extends JPanel implements ActionListener {
 	
-	int[] mouse = new int[2];
+	private int[] mouse = new int[2];
 	
-	int screenWidth;
-	int screenHeight;
+	private int screenWidth;
+	private int screenHeight;
 	
-	Input input = new Input();
-	Tree tree = new Tree();
-	Basket basket = new Basket();
+	private int stageScore = 0;
+	
+	private int lettersGenerated = 0;
+	private boolean gameOver = false;
+	
+	private Input input = new Input();
+	private Tree tree = new Tree();
+	private Basket basket = new Basket();
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
-
-		if(!tree.getGameOver()) {
+		
+		if (gameOver) {
+			g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+			g.setColor(Color.BLACK);
+			g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
+		} else {
+			mouse = input.getMouse();
+			if (input.getLeft()) {
+				stageScore += tree.submit();
+			}
+			if (input.getRight()) {
+				tree.pop();
+			}
+			if(input.getSpaceBar()) {
+				tree.pop();	
+			}
+			
+			if (tree.generateLetter()) {
+				lettersGenerated++;
+			}
+			
+			tree.fall();
+			basket.move(mouse);
+			basket.checkBasketCollision(tree);
+			
 			basket.render(g);
 			tree.render(g, screenWidth, screenHeight);
-		}
-		
-		mouse = input.getMouse();
-		if (input.getLeft()) {
-			tree.submit();
-		}
-		if (input.getRight()) {
-			tree.pop();
-		}
-		if(input.getSpaceBar()) {
-			tree.pop();	
-		}
-		
-		tree.generateLetter();
-		tree.fall();
-		tree.checkLetters();
-		basket.move(mouse);
-		basket.checkBasketCollision(tree);
-		
-		if(tree.getGameOver()) {
-			g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
+			
+			if (lettersGenerated >= 100) {
+				if (stageScore < 10) {
+					gameOver = true;
+				}
+			}
 		}
 	}
 	
