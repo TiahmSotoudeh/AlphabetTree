@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -43,7 +45,7 @@ public class Driver extends JPanel implements ActionListener {
 		if(input.getSpaceBar()) {
 			tree.pop();	
 		}
-		
+
 		tree.generateLetter();
 		tree.fall();
 		tree.render(g, screenWidth, screenHeight);
@@ -81,8 +83,9 @@ public class Driver extends JPanel implements ActionListener {
 		t.start();
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
 		@SuppressWarnings("unused")
 		Driver d = new Driver();
+		
 	}
 }
