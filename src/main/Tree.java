@@ -72,23 +72,10 @@ public class Tree implements ImageObserver {
 		scan.close();
 		
 		
-		BufferedImage one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen;
+		BufferedImage sprite;
 		try {
-			one = ImageIO.read(new File("src/resources/Growing_Tree1.png"));
-			two = ImageIO.read(new File("src/resources/Growing_Tree2.png"));
-			three = ImageIO.read(new File("src/resources/Budding_Tree.png"));
-			four = ImageIO.read(new File("src/resources/Flowered_Tree.png"));
-			five = ImageIO.read(new File("src/resources/Apple_Tree.png"));
-			six = ImageIO.read(new File("src/resources/Fall_Tree1.png"));
-			seven = ImageIO.read(new File("src/resources/Fall_Tree2.png"));
-			eight = ImageIO.read(new File("src/resources/Fall_Tree3.png"));
-			nine = ImageIO.read(new File("src/resources/Fall_Tree4.png"));
-			ten = ImageIO.read(new File("src/resources/Fall_Tree5.png"));
-			eleven = ImageIO.read(new File("src/resources/Fall_Tree6.png"));
-			twelve = ImageIO.read(new File("src/resources/Fall_Tree7.png"));
-			thirteen = ImageIO.read(new File("src/resources/Leafless_Tree.png"));
-			trees.add(one); trees.add(two); trees.add(three); trees.add(four); trees.add(five); trees.add(six); trees.add(seven);
-			trees.add(eight); trees.add(nine); trees.add(ten); trees.add(eleven); trees.add(twelve); trees.add(thirteen);
+			sprite = ImageIO.read(new File("src/resources/season-trees-spritesheet.png"));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
