@@ -51,12 +51,13 @@ public class Driver extends JPanel implements ActionListener {
 				tree.pop();	
 			}
 			
-			
+			//tree.resize(2);
 			tree.fall();
 			basket.move(mouse);
 			basket.checkBasketCollision(tree);
 			tree.generateLetter();
 			basket.render(g);
+			tree.changeTree(20);
 			tree.render(g, screenWidth, screenHeight);
 			
 			if (tree.getLettersGenerated() >= tree.getLevelCap()) {
