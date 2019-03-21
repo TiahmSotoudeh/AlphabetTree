@@ -35,6 +35,7 @@ public class Driver extends JPanel implements ActionListener {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
 		
+		
 		if (gameOver) {
 			g.setFont(new Font("Helvetica", Font.PLAIN, 30));
 			g.setColor(Color.BLACK);
@@ -65,8 +66,19 @@ public class Driver extends JPanel implements ActionListener {
 					if(gracePeriod==0) {
 						gameOver = true;
 					}
+				} else if(gameOver==false) {
+					gracePeriod--;
+					g.setFont(new Font("Helvetica", Font.PLAIN, 60));
+					g.setColor(Color.BLACK);
+					g.drawString("THE NEXT MONTH ARRIVES", 365, 450);
+					if(gracePeriod==0) {
+						tree.addSeasonState();
+						tree.setLettersGenerated(0);
+						gracePeriod=120;
+					}
 				}
 			}
+			
 		}
 	}
 	

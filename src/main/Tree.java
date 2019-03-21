@@ -39,6 +39,7 @@ public class Tree implements ImageObserver {
 	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
 	private int levelCap;
 	private int lettersGenerated;
+	private int seasonState;
 	
 	public Tree() {
 		word = new Stack<>();
@@ -46,6 +47,7 @@ public class Tree implements ImageObserver {
 		wordValue = 0;
 		totalScore = 0;
 		letters = new ArrayList<>();
+		seasonState = 0;
 		Scanner scan = null;
 		lettersGenerated=0;
 		
@@ -72,7 +74,7 @@ public class Tree implements ImageObserver {
 		scan.close();
 		
 		
-		BufferedImage one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen;
+/*	get rid of these comments later	BufferedImage one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen;
 		try {
 			one = ImageIO.read(new File("src/resources/Growing_Tree1.png"));
 			two = ImageIO.read(new File("src/resources/Growing_Tree2.png"));
@@ -92,7 +94,7 @@ public class Tree implements ImageObserver {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
@@ -220,6 +222,10 @@ public class Tree implements ImageObserver {
 		this.levelCap = levelCap;
 	}
 	
+	public void setLettersGenerated(int levelCap) {
+		this.lettersGenerated = levelCap;
+	}
+	
 	public int getLettersGenerated() {
 		return lettersGenerated;
 	}
@@ -228,5 +234,13 @@ public class Tree implements ImageObserver {
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public int getSeasonState() {
+		return seasonState;
+	}
+
+	public void addSeasonState() {
+		this.seasonState++;
 	}
 }
