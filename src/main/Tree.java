@@ -36,6 +36,7 @@ public class Tree implements ImageObserver {
 	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
 	private int levelCap;
 	private int lettersGenerated;
+	private int seasonState;
 	private BufferedImage sprite;
 	private BufferedImage image;
 	
@@ -45,6 +46,7 @@ public class Tree implements ImageObserver {
 		wordValue = 0;
 		totalScore = 0;
 		letters = new ArrayList<>();
+		seasonState = 0;
 		Scanner scan = null;
 		lettersGenerated=0;
 		
@@ -68,7 +70,8 @@ public class Tree implements ImageObserver {
 			dictionary.add(scan.next().toUpperCase());
 		}
 		
-		scan.close();
+		scan.close();	
+		
 		try {
 			sprite = ImageIO.read(new File("src/resources/season-trees-spritesheet.png"));
 
@@ -216,6 +219,10 @@ public class Tree implements ImageObserver {
 		this.levelCap = levelCap;
 	}
 	
+	public void setLettersGenerated(int levelCap) {
+		this.lettersGenerated = levelCap;
+	}
+	
 	public int getLettersGenerated() {
 		return lettersGenerated;
 	}
@@ -224,5 +231,13 @@ public class Tree implements ImageObserver {
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public int getSeasonState() {
+		return seasonState;
+	}
+
+	public void addSeasonState() {
+		this.seasonState++;
 	}
 }
