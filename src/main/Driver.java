@@ -8,8 +8,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -34,8 +36,13 @@ public class Driver extends JPanel implements ActionListener {
 	private int count = 0;
 	
 	public void paint(Graphics g) {
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(0, 0, 1920, 1080);
+		
+		try {
+			g.drawImage(ImageIO.read(new File("src/resources/pixelbg.png")), 0, 0, screenWidth, screenHeight, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 		if (gameOver) {
 			g.setFont(new Font("Helvetica", Font.PLAIN, 30));
