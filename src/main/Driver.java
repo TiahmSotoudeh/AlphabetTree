@@ -18,6 +18,7 @@ import javax.swing.Timer;
 public class Driver extends JPanel implements ActionListener {
 	
 	private int[] mouse = new int[2];
+	private int[] click = new int[2];
 	
 	private int screenWidth;
 	private int screenHeight;
@@ -25,6 +26,7 @@ public class Driver extends JPanel implements ActionListener {
 	private int stageScore = 0;
 	
 	private boolean gameOver = false;
+	private boolean menu = true;
 	
 	private Input input = new Input();
 	private Tree tree = new Tree();
@@ -33,10 +35,14 @@ public class Driver extends JPanel implements ActionListener {
 	private int day = 0;
 	private int count = 0;
 	
+	private Button play = new Button(1920/2 - 100, 400, 200, 100, "a", new Font("Helvetica", Font.PLAIN, 40));
+	private Text text = new Text(100, 100, 100, 100, "a b c d e f g ewa fdsasdfuiahfekaa ewuff", new Font("Helvetica", Font.PLAIN, 20));
+	
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
 		
+
 		
 		if (gameOver) {
 			g.setFont(new Font("Helvetica", Font.PLAIN, 30));
@@ -53,24 +59,51 @@ public class Driver extends JPanel implements ActionListener {
 			if(input.getSpaceBar()) {
 				tree.pop();	
 			}
-			count++;
-			if (count%100 == 0)
-			day++;
-			//tree.resize(2);
-			tree.changeTree(day);
-			tree.render(g, screenWidth, screenHeight);
-
-			tree.fall();
-			basket.move(mouse);
-			basket.checkBasketCollision(tree);
-			tree.generateLetter();
-			basket.render(g);
-			
-			if (tree.getLettersGenerated() >= tree.getLevelCap()) {
-				if (stageScore < 10) {
-					gracePeriod--;
-					if(gracePeriod==0) {
-						gameOver = true;
+		mouse = input.getMouse();
+		click = input.getClick();
+		
+		if (menu) {
+			play.render(g);
+			text.render(g);
+			if (play.clicked(click)) {
+				menu = false;
+			}
+		} else {
+			if (gameOver) {
+				g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+				g.setColor(Color.BLACK);
+				g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
+			} else {
+				
+				if (input.getLeft()) {
+					stageScore += tree.submit();
+				}
+				if (input.getRight()) {
+					tree.pop();
+				}
+				if(input.getSpaceBar()) {
+					tree.pop();	
+				}
+				
+				count++;
+				if (count%100 == 0)
+				day++;
+				//tree.resize(2);
+				tree.changeTree(day);
+				tree.render(g, screenWidth, screenHeight);
+	
+				tree.fall();
+				basket.move(mouse);
+				basket.checkBasketCollision(tree);
+				tree.generateLetter();
+				basket.render(g);
+				
+				if (tree.getLettersGenerated() >= tree.getLevelCap()) {
+					if (stageScore < 10) {
+						gracePeriod--;
+						if(gracePeriod==0) {
+							gameOver = true;
+						}
 					}
 				} else if(gameOver==false) {
 					gracePeriod--;
@@ -84,7 +117,7 @@ public class Driver extends JPanel implements ActionListener {
 					}
 				}
 			}
-			
+		}
 		}
 	}
 	
