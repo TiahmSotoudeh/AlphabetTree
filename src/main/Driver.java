@@ -42,23 +42,6 @@ public class Driver extends JPanel implements ActionListener {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, 1920, 1080);
 		
-
-		
-		if (gameOver) {
-			g.setFont(new Font("Helvetica", Font.PLAIN, 30));
-			g.setColor(Color.BLACK);
-			g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
-		} else {
-			mouse = input.getMouse();
-			if (input.getLeft()) {
-				stageScore += tree.submit();
-			}
-			if (input.getRight()) {
-				tree.pop();
-			}
-			if(input.getSpaceBar()) {
-				tree.pop();	
-			}
 		mouse = input.getMouse();
 		click = input.getClick();
 		
@@ -104,8 +87,7 @@ public class Driver extends JPanel implements ActionListener {
 						if(gracePeriod==0) {
 							gameOver = true;
 						}
-					}
-				} else if(gameOver==false) {
+					} else if(gameOver==false) {
 					gracePeriod--;
 					g.setFont(new Font("Helvetica", Font.PLAIN, 60));
 					g.setColor(Color.BLACK);
@@ -115,9 +97,9 @@ public class Driver extends JPanel implements ActionListener {
 						tree.setLettersGenerated(0);
 						gracePeriod=120;
 					}
+					}
 				}
 			}
-		}
 		}
 	}
 	
