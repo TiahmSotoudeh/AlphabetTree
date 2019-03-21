@@ -32,6 +32,8 @@ public class Driver extends JPanel implements ActionListener {
 	private Tree tree = new Tree();
 	private Basket basket = new Basket();
 	private int gracePeriod = 120;
+	private int day = 0;
+	private int count = 0;
 	
 	private Button play = new Button(1920/2 - 100, 400, 200, 100, "a", new Font("Helvetica", Font.PLAIN, 40));
 	private Text text = new Text(100, 100, 100, 100, "a b c d e f g ewa fdsasdfuiahfekaa ewuff", new Font("Helvetica", Font.PLAIN, 20));
@@ -45,10 +47,10 @@ public class Driver extends JPanel implements ActionListener {
 		
 		if (menu) {
 			play.render(g);
+			text.render(g);
 			if (play.clicked(click)) {
 				menu = false;
 			}
-			text.render(g);
 		} else {
 			if (gameOver) {
 				g.setFont(new Font("Helvetica", Font.PLAIN, 30));
@@ -66,13 +68,18 @@ public class Driver extends JPanel implements ActionListener {
 					tree.pop();	
 				}
 				
-				
+				count++;
+				if (count%100 == 0)
+				day++;
+				//tree.resize(2);
+				tree.changeTree(day);
+				tree.render(g, screenWidth, screenHeight);
+	
 				tree.fall();
 				basket.move(mouse);
 				basket.checkBasketCollision(tree);
 				tree.generateLetter();
 				basket.render(g);
-				tree.render(g, screenWidth, screenHeight);
 				
 				if (tree.getLettersGenerated() >= tree.getLevelCap()) {
 					if (stageScore < 10) {
