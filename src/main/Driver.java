@@ -30,6 +30,8 @@ public class Driver extends JPanel implements ActionListener {
 	private Tree tree = new Tree();
 	private Basket basket = new Basket();
 	private int gracePeriod = 120;
+	private int day = 0;
+	private int count = 0;
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
@@ -50,14 +52,16 @@ public class Driver extends JPanel implements ActionListener {
 			if(input.getSpaceBar()) {
 				tree.pop();	
 			}
-			
+			count++;
+			if (count%100 == 0)
+			day++;
 			//tree.resize(2);
 			tree.fall();
 			basket.move(mouse);
 			basket.checkBasketCollision(tree);
 			tree.generateLetter();
 			basket.render(g);
-			tree.changeTree(20);
+			tree.changeTree(day);
 			tree.render(g, screenWidth, screenHeight);
 			
 			if (tree.getLettersGenerated() >= tree.getLevelCap()) {

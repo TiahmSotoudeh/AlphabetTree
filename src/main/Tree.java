@@ -202,7 +202,7 @@ public class Tree implements ImageObserver {
 		g.drawString(s, x, 100);
 		
 		
-		g.drawImage(image, (screenWidth/2)-300, (screenHeight/2)-500, null);
+		g.drawImage(image, 0, 0, null);
 	}
 
 	public int getLevelCap() {
