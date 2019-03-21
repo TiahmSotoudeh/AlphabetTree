@@ -161,15 +161,16 @@ public class Tree implements ImageObserver {
 
 	public BufferedImage changeTree(int day) {
 		int scale = 20;
-		BufferedImage img = sprite.getSubimage(day * 60, 0, 60, 64); //fill in the corners of the desired crop location here
+		BufferedImage img = sprite.getSubimage(day * 64, 0, 64, 43); //fill in the corners of the desired crop location here
 		img = resize(img, img.getWidth()*scale, img.getHeight()*scale);
 		this.image = img;
 		return img;
 	}
 	
 	public void render(Graphics g, int screenWidth, int screenHeight) {
+		g.drawImage(image, 0, 0, null);
+
 		g.setColor(Color.BLACK);
-		g.drawLine(0, 0, 1920, 1080);
 		
 		for (Letter l : letters) l.render(g);
 		
@@ -202,7 +203,6 @@ public class Tree implements ImageObserver {
 		g.drawString(s, x, 100);
 		
 		
-		g.drawImage(image, 0, 0, null);
 	}
 
 	public int getLevelCap() {

@@ -56,13 +56,14 @@ public class Driver extends JPanel implements ActionListener {
 			if (count%100 == 0)
 			day++;
 			//tree.resize(2);
+			tree.changeTree(day);
+			tree.render(g, screenWidth, screenHeight);
+
 			tree.fall();
 			basket.move(mouse);
 			basket.checkBasketCollision(tree);
 			tree.generateLetter();
 			basket.render(g);
-			tree.changeTree(day);
-			tree.render(g, screenWidth, screenHeight);
 			
 			if (tree.getLettersGenerated() >= tree.getLevelCap()) {
 				if (stageScore < 10) {
