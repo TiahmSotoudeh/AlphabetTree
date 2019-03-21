@@ -4,24 +4,21 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 
 public class Tree implements ImageObserver {
 	
@@ -35,11 +32,12 @@ public class Tree implements ImageObserver {
 	private HashSet<String> dictionary = new HashSet<>();
 
 	private int vowelTimer=2;
-	private ArrayList<BufferedImage> trees;
 	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
 	private int levelCap;
 	private int lettersGenerated;
 	private int seasonState;
+	private BufferedImage sprite;
+	private BufferedImage image;
 	
 	public Tree() {
 		word = new Stack<>();
@@ -71,30 +69,15 @@ public class Tree implements ImageObserver {
 			dictionary.add(scan.next().toUpperCase());
 		}
 		
-		scan.close();
+		scan.close();	
 		
-		
-/*	get rid of these comments later	BufferedImage one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen;
 		try {
-			one = ImageIO.read(new File("src/resources/Growing_Tree1.png"));
-			two = ImageIO.read(new File("src/resources/Growing_Tree2.png"));
-			three = ImageIO.read(new File("src/resources/Budding_Tree.png"));
-			four = ImageIO.read(new File("src/resources/Flowered_Tree.png"));
-			five = ImageIO.read(new File("src/resources/Apple_Tree.png"));
-			six = ImageIO.read(new File("src/resources/Fall_Tree1.png"));
-			seven = ImageIO.read(new File("src/resources/Fall_Tree2.png"));
-			eight = ImageIO.read(new File("src/resources/Fall_Tree3.png"));
-			nine = ImageIO.read(new File("src/resources/Fall_Tree4.png"));
-			ten = ImageIO.read(new File("src/resources/Fall_Tree5.png"));
-			eleven = ImageIO.read(new File("src/resources/Fall_Tree6.png"));
-			twelve = ImageIO.read(new File("src/resources/Fall_Tree7.png"));
-			thirteen = ImageIO.read(new File("src/resources/Leafless_Tree.png"));
-			trees.add(one); trees.add(two); trees.add(three); trees.add(four); trees.add(five); trees.add(six); trees.add(seven);
-			trees.add(eight); trees.add(nine); trees.add(ten); trees.add(eleven); trees.add(twelve); trees.add(thirteen);
+			sprite = ImageIO.read(new File("src/resources/season-trees-spritesheet.png"));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 	}
 	
@@ -168,20 +151,29 @@ public class Tree implements ImageObserver {
 		return 0;
 	}
 	
-	public BufferedImage resize(Graphics g, BufferedImage img, double scale) {
-		BufferedImage result = new BufferedImage((int) (img.getWidth() * scale),
-                (int) (img.getHeight() * scale), BufferedImage.TYPE_INT_ARGB);
-		
-		return result;		
-	}
-	
+	public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+	    Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+	    BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+	    Graphics2D g2d = dimg.createGraphics();
+	    g2d.drawImage(tmp, 0, 0, null);
+	    g2d.dispose();
+
+	    return dimg;
+	}  
+
 	public BufferedImage changeTree(int day) {
-		return trees.get(day);
+		int scale = 20;
+		BufferedImage img = sprite.getSubimage(day * 64, 0, 64, 43); //fill in the corners of the desired crop location here
+		img = resize(img, img.getWidth()*scale, img.getHeight()*scale);
+		this.image = img;
+		return img;
 	}
 	
 	public void render(Graphics g, int screenWidth, int screenHeight) {
+		g.drawImage(image, 0, 0, null);
+
 		g.setColor(Color.BLACK);
-		g.drawLine(0, 0, 1920, 1080);
 		
 		for (Letter l : letters) l.render(g);
 		
@@ -212,6 +204,8 @@ public class Tree implements ImageObserver {
 		s = "Total Score: " + Integer.toString(totalScore);
 		x = (screenWidth - fm.stringWidth(s))/2;
 		g.drawString(s, x, 100);
+		
+		
 	}
 
 	public int getLevelCap() {
