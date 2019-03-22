@@ -35,8 +35,8 @@ public class Driver extends JPanel implements ActionListener {
 	private int day = 0;
 	private int count = 0;
 	
-	private Button play = new Button(1920/2 - 100, 400, 200, 100, "a", new Font("Helvetica", Font.PLAIN, 40));
-	private Text text = new Text(100, 100, 100, 100, "a b c d e f g ewa fdsasdfuiahfekaa ewuff", new Font("Helvetica", Font.PLAIN, 20));
+	private Button play = new Button(1920/2 - 100, 400, 200, 100, "Play", new Font("Helvetica", Font.PLAIN, 40));
+	private Text text = new Text(100, 100, 200, 100, "a b c d e f g ewa fdsasdfuiahfekaa ewuff", new Font("Helvetica", Font.PLAIN, 20), Text.CENTER);
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
