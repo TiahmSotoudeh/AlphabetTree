@@ -3,11 +3,11 @@ package main;
 import java.awt.Font;
 import java.awt.Graphics;
 
+//stores a falling letter and its x and y position
 public class Letter {	
 	private int x, y;
 	private char c;
 	
-	//stores a falling letter and its x and y position
 	public Letter(char c, int x, int y) {
 		this.c = c;
 		this.x = x;
