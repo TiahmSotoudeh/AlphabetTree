@@ -8,8 +8,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -39,8 +41,13 @@ public class Driver extends JPanel implements ActionListener {
 	private Text text = new Text(100, 100, 200, 100, "a b c d e f g ewa fdsasdfuiahfekaa ewuff", new Font("Helvetica", Font.PLAIN, 20), Text.CENTER);
 	
 	public void paint(Graphics g) {
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(0, 0, 1920, 1080);
+		
+		try {
+			g.drawImage(ImageIO.read(new File("src/resources/pixelbg.png")), 0, 0, screenWidth, screenHeight, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 		mouse = input.getMouse();
 		click = input.getClick();
@@ -87,6 +94,16 @@ public class Driver extends JPanel implements ActionListener {
 						if(gracePeriod==0) {
 							gameOver = true;
 						}
+					} else if(gameOver==false) {
+					gracePeriod--;
+					g.setFont(new Font("Helvetica", Font.PLAIN, 60));
+					g.setColor(Color.BLACK);
+					g.drawString("THE NEXT MONTH ARRIVES", 365, 450);
+					if(gracePeriod==0) {
+						tree.addSeasonState();
+						tree.setLettersGenerated(0);
+						gracePeriod=120;
+					}
 					}
 				}
 			}

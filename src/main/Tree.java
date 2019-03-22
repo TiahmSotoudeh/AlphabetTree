@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -35,6 +36,7 @@ public class Tree implements ImageObserver {
 	private char[] vowels = {'A', 'E', 'I', 'O', 'U'};
 	private int levelCap;
 	private int lettersGenerated;
+	private int seasonState;
 	private BufferedImage sprite;
 	private BufferedImage image;
 	
@@ -44,6 +46,7 @@ public class Tree implements ImageObserver {
 		wordValue = 0;
 		totalScore = 0;
 		letters = new ArrayList<>();
+		seasonState = 0;
 		Scanner scan = null;
 		lettersGenerated=0;
 		
@@ -67,7 +70,8 @@ public class Tree implements ImageObserver {
 			dictionary.add(scan.next().toUpperCase());
 		}
 		
-		scan.close();
+		scan.close();	
+		
 		try {
 			sprite = ImageIO.read(new File("src/resources/season-trees-spritesheet.png"));
 
@@ -160,17 +164,19 @@ public class Tree implements ImageObserver {
 	}  
 
 	public BufferedImage changeTree(int day) {
-		int scale = 20;
+		int scale = 25;
 		BufferedImage img = sprite.getSubimage(day * 64, 0, 64, 43); //fill in the corners of the desired crop location here
 		img = resize(img, img.getWidth()*scale, img.getHeight()*scale);
 		this.image = img;
 		return img;
 	}
 	
-	public void render(Graphics g, int screenWidth, int screenHeight) {
-		g.drawImage(image, 0, 0, null);
+	public void render(Graphics gd, int screenWidth, int screenHeight) {
+		Graphics2D g = (Graphics2D) gd;
 
-		g.setColor(Color.BLACK);
+		g.drawImage(image, screenWidth/2 - image.getWidth()/2 + image.getWidth()/8, 0, null);
+
+		g.setColor(Color.YELLOW);
 		
 		for (Letter l : letters) l.render(g);
 		
@@ -213,6 +219,10 @@ public class Tree implements ImageObserver {
 		this.levelCap = levelCap;
 	}
 	
+	public void setLettersGenerated(int levelCap) {
+		this.lettersGenerated = levelCap;
+	}
+	
 	public int getLettersGenerated() {
 		return lettersGenerated;
 	}
@@ -221,5 +231,13 @@ public class Tree implements ImageObserver {
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public int getSeasonState() {
+		return seasonState;
+	}
+
+	public void addSeasonState() {
+		this.seasonState++;
 	}
 }
