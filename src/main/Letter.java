@@ -18,7 +18,7 @@ public class Letter {
 	}
 	
 	public void falling() {
-		y+=5;
+		y+=10;
 	}
 
 	public int getX() {
