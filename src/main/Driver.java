@@ -39,7 +39,7 @@ public class Driver extends JPanel implements ActionListener {
 
 	private Button play = new Button(1920 / 2 - 100, 400, 200, 100, "a", new Font("Helvetica", Font.PLAIN, 40));
 
-	public void paint(Graphics g) {
+	public void paint(Graphics g) { // constantly repainting and updating graphics
 
 		try {
 			g.drawImage(ImageIO.read(new File("src/resources/pixelbg.png")), 0, 0, screenWidth, screenHeight, null);
@@ -57,38 +57,37 @@ public class Driver extends JPanel implements ActionListener {
 				menu = false;
 			}
 		} else {
-			if (gameOver) {
+			if (gameOver) { // screen changes when game is over
 				g.setFont(new Font("Helvetica", Font.PLAIN, 30));
 				g.setColor(Color.BLACK);
 				g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
 			} else {
 
-				if (input.getLeft()) {
+				if (input.getLeft()) { // based on mouse clicks, actions performed
 					stageScore += tree.submit();
 				}
-				if (input.getRight()) {
+				if (input.getRight()) { // popping letters
 					tree.pop();
 				}
-				if (input.getSpaceBar()) {
+				if (input.getSpaceBar()) { // also popping letters
 					tree.pop();
 				}
 
-				count++;
+				count++; // every 100 updates the tree is updated
 				if (count % 100 == 0)
 					day++;
-				// tree.resize(2);
-				tree.changeTree(day);
-				tree.render(g, screenWidth, screenHeight);
+				tree.changeTree(day); // tree updated to next season phase
+				tree.render(g, screenWidth, screenHeight); // draws the tree stuff
 
-				tree.fall();
-				basket.move(mouse);
-				basket.checkBasketCollision(tree);
-				tree.generateLetter();
-				basket.render(g);
+				tree.fall(); // letters fall
+				basket.move(mouse); // the basket can move to collect letters with mouse movement
+				basket.checkBasketCollision(tree); // checks if letters have collided
+				tree.generateLetter(); // more random letters generated
+				basket.render(g); // basket is drawn
 
 				if (tree.getLettersGenerated() >= tree.getLevelCap()) {
-					if (stageScore < 10) {
-						gracePeriod--;
+					if (stageScore < 10) { // if you haven't reached this score by a time, you're out
+						gracePeriod--; // keeps track of how long you have until game over
 						if (gracePeriod == 0) {
 							gameOver = true;
 						}
@@ -96,7 +95,7 @@ public class Driver extends JPanel implements ActionListener {
 						gracePeriod--;
 						g.setFont(new Font("Helvetica", Font.PLAIN, 60));
 						g.setColor(Color.BLACK);
-						g.drawString("THE NEXT MONTH ARRIVES", 365, 450);
+						g.drawString("THE NEXT MONTH ARRIVES", 365, 450); // getting to the next level yay!
 						if (gracePeriod == 0) {
 							tree.addSeasonState();
 							tree.setLettersGenerated(0);
@@ -134,7 +133,7 @@ public class Driver extends JPanel implements ActionListener {
 		screenHeight = screenSize.height;
 
 		t = new Timer(1000 / 60, this);
-		t.start();
+		t.start(); // timer for game
 	}
 
 	public static void main(String[] args) throws IOException {
