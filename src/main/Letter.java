@@ -3,6 +3,7 @@ package main;
 import java.awt.Font;
 import java.awt.Graphics;
 
+//stores a falling letter and its x and y position
 public class Letter {	
 	private int x, y;
 	private char c;
@@ -18,7 +19,7 @@ public class Letter {
 	}
 	
 	public void falling() {
-		y+=5;
+		y += 10;
 	}
 
 	public int getX() {

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Text {
 	
-	private int x, y, width, height;
+	private int x, y;
 	private Font font;
 	private FontMetrics fm;
 	
@@ -16,12 +16,15 @@ public class Text {
 	
 	private String[] words;
 	private ArrayList<String> lines = new ArrayList<>();
+	private ArrayList<Integer> xOffsets = new ArrayList<>();
 	
-	public Text(int x, int y, int width, int height, String text, Font font) {
+	public static final int LEFT = 0;
+	public static final int CENTER = 1;
+	public static final int RIGHT = 2;
+	
+	public Text(int x, int y, int width, int height, String text, Font font, int alignment) {
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
 		this.font = font;
 		
 		Canvas c = new Canvas();
@@ -34,6 +37,13 @@ public class Text {
 			String w = words[i];
 			if (fm.stringWidth(line) + fm.stringWidth(" " + w) > width) {
 				lines.add(line);
+				if (alignment == LEFT) {
+					xOffsets.add(0);
+				} else if (alignment == CENTER) {
+					xOffsets.add((width - fm.stringWidth(line))/2);
+				} else if (alignment == RIGHT) {
+					xOffsets.add(width - fm.stringWidth(line));
+				}
 				line = w;
 			} else {
 				if (i == 0) {
@@ -44,17 +54,20 @@ public class Text {
 			}
 		}
 		lines.add(line);
-		for (String w : lines) {
-			System.out.println(w);
+		if (alignment == LEFT) {
+			xOffsets.add(0);
+		} else if (alignment == CENTER) {
+			xOffsets.add((width - fm.stringWidth(line))/2);
+		} else if (alignment == RIGHT) {
+			xOffsets.add(width - fm.stringWidth(line));
 		}
 	}
 	
 	public void render(Graphics g) {
 		g.setFont(font);
-		g.drawRect(x, y, width, height);
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
-			g.drawString(line, x , y + yOffset + fm.getHeight() * i);
+			g.drawString(line, x + xOffsets.get(i), y + yOffset + fm.getHeight() * i);
 		}
 	}
 }

@@ -8,11 +8,16 @@ import java.awt.event.MouseMotionListener;
 
 public class Input implements KeyListener, MouseListener, MouseMotionListener {
 	
+	//mouse position
 	private int[] mouse = new int[2];
+	//mouse click position
 	private int[] click = new int[2];
+	//true if left mouse released
 	private boolean leftClick;
+	//true if right mouse released
 	private boolean rightClick;
-	private boolean spaceBar = false;
+	//true if spacebar released
+	private boolean spaceBar;
 	
 	public int[] getMouse() {
 		return mouse;
@@ -59,17 +64,17 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 		click[0] = e.getX();
 		click[1] = e.getY();
 		if (e.getButton() == MouseEvent.BUTTON1) {
+			//button1 is left click
 			leftClick = true;
 		} else if (e.getButton() == MouseEvent.BUTTON3) {
+			//button3 is right click
 			rightClick = true;
 		}
 	}
 	
 	private void moveMouse(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		mouse[0] = x;
-		mouse[1] = y;
+		mouse[0] = e.getX();
+		mouse[1] = e.getY();
 	}
 
 	@Override
@@ -89,8 +94,9 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		//keycode 32 is spacebar
 		if(e.getKeyCode() == 32) {
-			spaceBar =true;
+			spaceBar = true;
 		}
 	}
 

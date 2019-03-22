@@ -23,7 +23,7 @@ import javax.imageio.ImageIO;
 
 public class Tree implements ImageObserver {
 	
-	private static final int LETTER_COOLDOWN = 60;
+	private static final int LETTER_COOLDOWN = 20;
 	
 	private Stack<Character> word;
 	private int wordValue, totalScore;
@@ -103,7 +103,7 @@ public class Tree implements ImageObserver {
 				letterTimer--;
 			} else if (vowelTimer == 0) {
 				char c = vowels[(int)(Math.random() * vowels.length)];
-				int x = (int)(Math.random()*500);
+				int x = (int)(Math.random()*1000) + 300;
 				int y = (int)(Math.random()*51);
 				letters.add(new Letter(c, x, y));
 				vowelTimer = 2;
@@ -111,7 +111,7 @@ public class Tree implements ImageObserver {
 			} else {
 				vowelTimer--;
 				char c = (char)((int)(Math.random() * 26) + 65);
-				int x = (int)(Math.random()*500)+300;
+				int x = (int)(Math.random()*1000) + 300;
 				int y = (int)(Math.random()*51);
 				letters.add(new Letter(c, x, y));
 				letterTimer = LETTER_COOLDOWN;
