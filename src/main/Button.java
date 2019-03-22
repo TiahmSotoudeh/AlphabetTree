@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+//generic class to create and draw buttons
 public class Button {
 	
 	private int x, y, width, height;
@@ -28,6 +29,7 @@ public class Button {
 		yOffset = (height - fm.getHeight())/2 + fm.getAscent();
 	}
 	
+	//check if the button was clicked
 	public boolean clicked(int[] mouse) {
 		return mouse[0] > x && mouse[0] < x + width && mouse[1] > y && mouse[1] < y + width;
 	}
