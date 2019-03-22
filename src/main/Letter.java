@@ -7,6 +7,7 @@ public class Letter {
 	private int x, y;
 	private char c;
 	
+	//stores a falling letter and its x and y position
 	public Letter(char c, int x, int y) {
 		this.c = c;
 		this.x = x;
@@ -18,7 +19,7 @@ public class Letter {
 	}
 	
 	public void falling() {
-		y+=10;
+		y += 10;
 	}
 
 	public int getX() {
