@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -69,6 +70,7 @@ public class Text {
 	}
 	
 	public void render(Graphics g) {
+		g.setColor(Color.BLACK);
 		g.setFont(font);
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);

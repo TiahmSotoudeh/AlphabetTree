@@ -41,8 +41,9 @@ public class Driver extends JPanel implements ActionListener {
 	private int gracePeriod = 240; // how long you have to get a score without dying
 	private int day = 0; // counter for tree cropper on sprite sheet for seasons
 	private int count = 0; // counter for frames for trees
-
-	private Button play = new Button(1920 / 2 - 100, 400, 200, 100, "Play", new Font("Helvetica", Font.PLAIN, 40));
+	
+	private Text title;
+	private Button play;
 	
 	Image bg;
 
@@ -53,6 +54,7 @@ public class Driver extends JPanel implements ActionListener {
 		g.drawImage(bg, 0, 0, screenWidth, screenHeight, null);
 
 		if (state == State.MENU) {
+			title.render(g);
 			play.render(g);
 			if (play.clicked(click)) {
 				state = State.GAME;
@@ -115,6 +117,22 @@ public class Driver extends JPanel implements ActionListener {
 	Timer t;
 
 	public Driver() {
+		//get screen size
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		screenWidth = screenSize.width;
+		screenHeight = screenSize.height;
+		
+		//load menu
+		title = new Text(0, 10, screenWidth, 200, "Alphabet Tree", new Font("Helvetica", Font.BOLD, 200), Text.CENTER);
+		play = new Button(screenWidth/2 - 100, 400, 200, 100, "Play", new Font("Helvetica", Font.PLAIN, 40));
+		
+		//load image
+		try {
+			bg = ImageIO.read(new File("src/resources/pixelbg.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		JFrame f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -129,18 +147,6 @@ public class Driver extends JPanel implements ActionListener {
 		f.addMouseListener(input);
 		f.addMouseMotionListener(input);
 		
-		//get screen size
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		screenWidth = screenSize.width;
-		screenHeight = screenSize.height;
-		
-		//load image
-		try {
-			bg = ImageIO.read(new File("src/resources/pixelbg.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		t = new Timer(1000/60, this);
 		t.start(); // timer for game
 	}
