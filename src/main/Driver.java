@@ -26,9 +26,14 @@ public class Driver extends JPanel implements ActionListener {
 	private int screenHeight;
 
 	private int stageScore = 0; // total score as displayed at the top
-
-	private boolean gameOver = false; // boolean to keep track of game session
-	private boolean menu = true; // menu
+	
+	//keep track of program state
+	private enum State {
+		MENU,
+		GAME,
+		GAMEOVER
+	}
+	State state = State.MENU;
 
 	private Input input = new Input(); // input stack of letters
 	private Tree tree = new Tree(); // has everything in it
@@ -47,18 +52,17 @@ public class Driver extends JPanel implements ActionListener {
 		
 		g.drawImage(bg, 0, 0, screenWidth, screenHeight, null);
 
-		if (menu) {
+		if (state == State.MENU) {
 			play.render(g);
 			if (play.clicked(click)) {
-				menu = false;
+				state = State.GAME;
 			}
 		} else {
-			if (gameOver) { // screen changes when game is over
+			if (state == State.GAMEOVER) { // screen changes when game is over
 				g.setFont(new Font("Helvetica", Font.PLAIN, 30));
 				g.setColor(Color.BLACK);
 				g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
 			} else {
-
 				if (input.getLeft()) { // based on mouse clicks, actions performed
 					stageScore += tree.submit();
 				}
@@ -85,9 +89,9 @@ public class Driver extends JPanel implements ActionListener {
 					if (stageScore < 10) { // if you haven't reached this score by a time, you're out
 						gracePeriod--; // keeps track of how long you have until game over
 						if (gracePeriod == 0) {
-							gameOver = true;
+							state = State.GAMEOVER;
 						}
-					} else if (gameOver == false) {
+					} else if (state != State.GAMEOVER) {
 						gracePeriod--;
 						g.setFont(new Font("Helvetica", Font.PLAIN, 60));
 						g.setColor(Color.BLACK);
