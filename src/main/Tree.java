@@ -223,7 +223,7 @@ public class Tree implements ImageObserver {
 
 		g.drawImage(image, screenWidth / 2 - image.getWidth() / 2 + image.getWidth() / 8, 0, null); //
 
-		g.setColor(Color.BLUE); // yellow text so that it shows up!
+		g.setColor(Color.YELLOW); // yellow text so that it shows up!
 
 		for (Letter l : letters)
 			l.render(g);
