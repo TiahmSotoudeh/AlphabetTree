@@ -37,19 +37,15 @@ public class Driver extends JPanel implements ActionListener {
 	private int day = 0; // counter for tree cropper on sprite sheet for seasons
 	private int count = 0; // counter for frames for trees
 
-	private Button play = new Button(1920 / 2 - 100, 400, 200, 100, "a", new Font("Helvetica", Font.PLAIN, 40));
+	private Button play = new Button(1920 / 2 - 100, 400, 200, 100, "Play", new Font("Helvetica", Font.PLAIN, 40));
+	
+	Image bg;
 
 	public void paint(Graphics g) {
-
-		try {
-			g.drawImage(ImageIO.read(new File("src/resources/pixelbg.png")), 0, 0, screenWidth, screenHeight, null);
-			// background art
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		mouse = input.getMouse();
 		click = input.getClick();
+		
+		g.drawImage(bg, 0, 0, screenWidth, screenHeight, null);
 
 		if (menu) {
 			play.render(g);
@@ -123,15 +119,24 @@ public class Driver extends JPanel implements ActionListener {
 		f.setUndecorated(true);
 		f.setBackground(Color.LIGHT_GRAY);
 		f.setVisible(true);
-
+		
+		//add keyboard and mouse input
 		f.add(this);
 		f.addKeyListener(input);
 		f.addMouseListener(input);
 		f.addMouseMotionListener(input);
-
+		
+		//get screen size
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		screenWidth = screenSize.width;
 		screenHeight = screenSize.height;
+		
+		//load image
+		try {
+			bg = ImageIO.read(new File("src/resources/pixelbg.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		t = new Timer(1000 / 60, this);
 		t.start();
