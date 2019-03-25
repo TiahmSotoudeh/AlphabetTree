@@ -173,8 +173,10 @@ public class Tree implements ImageObserver {
 
 	public BufferedImage changeTree(int day) { // crops the sprite sheet to a certain tree based on desired season and
 												// also scales it
-		BufferedImage img = sprite.getSubimage(day * 1600, 0, 1600, 1075); // fill in the corners of the desired crop location
-																		// here
+
+		BufferedImage img = sprite.getSubimage((day%43) * 1600, 0, 1600, 1075); // fill in the corners of the desired crop location
+
+																	
 		this.image = img;
 		return img;
 	}
