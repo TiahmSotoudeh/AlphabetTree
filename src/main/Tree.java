@@ -38,8 +38,8 @@ public class Tree implements ImageObserver {
 	private int seasonState; // current season based on timer
 	private BufferedImage sprite; // sprite sheet with trees
 	private BufferedImage image; // individual tree image
+	private int scale;
 	
-
 	public Tree() {
 		word = new Stack<>();
 		levelCap = 100;
@@ -80,6 +80,9 @@ public class Tree implements ImageObserver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		scale = 25;
+		sprite = resize(sprite, sprite.getWidth() * scale, sprite.getHeight() * scale);
+		
 	}
 
 	public List<Letter> getLetterList() {
@@ -170,10 +173,8 @@ public class Tree implements ImageObserver {
 
 	public BufferedImage changeTree(int day) { // crops the sprite sheet to a certain tree based on desired season and
 												// also scales it
-		int scale = 25;
-		BufferedImage img = sprite.getSubimage(day * 64, 0, 64, 43); // fill in the corners of the desired crop location
+		BufferedImage img = sprite.getSubimage(day * 1600, 0, 1600, 1075); // fill in the corners of the desired crop location
 																		// here
-		img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
 		this.image = img;
 		return img;
 	}
