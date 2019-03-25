@@ -31,10 +31,12 @@ public class Button {
 	
 	//check if the button was clicked
 	public boolean clicked(int[] mouse) {
-		return mouse[0] > x && mouse[0] < x + width && mouse[1] > y && mouse[1] < y + width;
+		return mouse[0] > x && mouse[0] < x + width && mouse[1] > y && mouse[1] < y + height;
 	}
 	
 	public void render(Graphics g) {
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(x, y, width, height);
 		g.setColor(Color.BLACK);
 		g.drawRect(x, y, width, height);
 		g.setFont(font);
