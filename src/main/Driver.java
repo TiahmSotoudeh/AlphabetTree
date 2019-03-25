@@ -137,7 +137,7 @@ public class Driver extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 
-		t = new Timer(1000 / 60, this);
+		t = new Timer(1000/60, this);
 		t.start(); // timer for game
 	}
 

@@ -6,7 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -23,7 +22,7 @@ import javax.imageio.ImageIO;
 
 public class Tree implements ImageObserver {
 
-	private static final int LETTER_COOLDOWN = 20;
+	private static final int LETTER_COOLDOWN = 40;
 
 	private Stack<Character> word; // word in the stack of inputted letters
 	private int wordValue, totalScore; // keeping track of game scores
