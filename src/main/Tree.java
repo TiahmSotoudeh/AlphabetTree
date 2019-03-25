@@ -38,6 +38,10 @@ public class Tree implements ImageObserver {
 	private int seasonState; // current season based on timer
 	private BufferedImage sprite; // sprite sheet with trees
 	private BufferedImage image; // individual tree image
+	private ArrayList<BufferedImage> spring;
+	private ArrayList<BufferedImage> summer;
+	private ArrayList<BufferedImage> fall;
+	private ArrayList<BufferedImage> winter;
 
 	public Tree() {
 		word = new Stack<>();
@@ -78,6 +82,32 @@ public class Tree implements ImageObserver {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+		int scale = 25;
+		for (int num = 0; num < 10; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			spring.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
+		}
+		for (int num = 0; num < 10; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			summer.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
+		}
+		for (int num = 0; num < 12; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			fall.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
+		}
+		for (int num = 0; num < 11; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			winter.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
 		}
 
 	}
@@ -167,13 +197,21 @@ public class Tree implements ImageObserver {
 		return dimg;
 	}
 
-	public void changeTree(int day) { // crops the sprite sheet to a certain tree based on desired season and
-												// also scales it
-		int scale = 25;
-		BufferedImage img = sprite.getSubimage(day * 64, 0, 64, 43); // fill in the corners of the desired crop location
-																		// here
-		img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
-		this.image = img;
+	public BufferedImage changeTree(String season, int day) { // crops the sprite sheet to a certain tree based on
+																// desired season and
+
+		// also scales it
+		day = day % 10;
+		if (season.equals("Spring")) {
+			return spring.get(day);
+		} else if (season.equals("Summer")) {
+			return summer.get(day);
+		} else if (season.equals("Fall")) {
+			return fall.get(day);
+		} else if (season.equals("Winter")) {
+			return winter.get(day);
+		}
+		return null;
 	}
 
 	public void render(Graphics gd, int screenWidth, int screenHeight) { // drawing everything on screen
@@ -181,7 +219,7 @@ public class Tree implements ImageObserver {
 
 		g.drawImage(image, screenWidth / 2 - image.getWidth() / 2 + image.getWidth() / 8, 0, null); //
 
-		g.setColor(Color.YELLOW); // yellow text so that it shows up!
+		g.setColor(Color.BLUE); // yellow text so that it shows up!
 
 		for (Letter l : letters)
 			l.render(g);

@@ -78,7 +78,7 @@ public class Driver extends JPanel implements ActionListener {
 				count++; // every 100 updates the tree is updated
 				if (count % 100 == 0)
 					day++;
-				tree.changeTree(day); // tree updated to next season phase
+				tree.changeTree("Spring", day); // tree updated to next season phase
 				tree.render(g, screenWidth, screenHeight); // draws the tree stuff
 
 				tree.fall(); // letters fall
