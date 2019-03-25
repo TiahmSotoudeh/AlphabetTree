@@ -33,7 +33,7 @@ public class Driver extends JPanel implements ActionListener {
 	private Input input = new Input(); // input stack of letters
 	private Tree tree = new Tree(); // has everything in it
 	private Basket basket = new Basket(); // basket to collect letters
-	private int gracePeriod = 120; // how long you have to get a score without dying
+	private int gracePeriod = 240; // how long you have to get a score without dying
 	private int day = 0; // counter for tree cropper on sprite sheet for seasons
 	private int count = 0; // counter for frames for trees
 
@@ -95,7 +95,7 @@ public class Driver extends JPanel implements ActionListener {
 						if (gracePeriod == 0) {
 							tree.addSeasonState();
 							tree.setLettersGenerated(0);
-							gracePeriod = 120;
+							gracePeriod = 240;
 						}
 					}
 				}
