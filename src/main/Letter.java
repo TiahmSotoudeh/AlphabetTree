@@ -19,7 +19,7 @@ public class Letter {
 	}
 
 	public void falling() {
-		y += 10;
+		y += 5;
 	}
 
 	public int getX() {

@@ -6,7 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -23,7 +22,7 @@ import javax.imageio.ImageIO;
 
 public class Tree implements ImageObserver {
 
-	private static final int LETTER_COOLDOWN = 20;
+	private static final int LETTER_COOLDOWN = 40;
 
 	private Stack<Character> word; // word in the stack of inputted letters
 	private int wordValue, totalScore; // keeping track of game scores
@@ -84,29 +83,32 @@ public class Tree implements ImageObserver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		int scale = 25;
-		for (int num = 0 ; num < 10; num++) {
-		BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop location
-		spring.add(img);																// here
-		img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
+		for (int num = 0; num < 10; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			spring.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
 		}
-		for (int num = 0 ; num < 10; num++) {
-		BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop location
-		summer.add(img);																// here
-		img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
+		for (int num = 0; num < 10; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			summer.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
 		}
-		for (int num = 0 ; num < 12; num++) {
-		BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop location
-		fall.add(img);																// here
-		img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
+		for (int num = 0; num < 12; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			fall.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
 		}
-		for (int num = 0 ; num < 11; num++) {
-		BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop location
-		winter.add(img);																// here
-		img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
+		for (int num = 0; num < 11; num++) {
+			BufferedImage img = sprite.getSubimage(num * 64, 0, 64, 43); // fill in the corners of the desired crop
+																			// location
+			winter.add(img); // here
+			img = resize(img, img.getWidth() * scale, img.getHeight() * scale);
 		}
-		
 
 	}
 
@@ -195,24 +197,21 @@ public class Tree implements ImageObserver {
 		return dimg;
 	}
 
-	public BufferedImage changeTree(String season, int day) { // crops the sprite sheet to a certain tree based on desired season and
-				
+	public BufferedImage changeTree(String season, int day) { // crops the sprite sheet to a certain tree based on
+																// desired season and
+
 		// also scales it
 		day = day % 10;
 		if (season.equals("Spring")) {
 			return spring.get(day);
-		}
-		else if (season.equals("Summer")) {
+		} else if (season.equals("Summer")) {
 			return summer.get(day);
-		}
-		else if (season.equals("Fall")) {
+		} else if (season.equals("Fall")) {
 			return fall.get(day);
-		}
-		else if (season.equals("Winter")) {
+		} else if (season.equals("Winter")) {
 			return winter.get(day);
 		}
 		return null;
-
 	}
 
 	public void render(Graphics gd, int screenWidth, int screenHeight) { // drawing everything on screen
