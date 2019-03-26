@@ -26,6 +26,7 @@ public class Driver extends JPanel implements ActionListener {
 	private int screenHeight;
 
 	private int stageScore = 0; // total score as displayed at the top
+	private int scoreMinimum = 30;
 	
 	//keep track of program state
 	private enum State {
@@ -86,9 +87,11 @@ public class Driver extends JPanel implements ActionListener {
 				basket.checkBasketCollision(tree); // checks if letters have collided
 				tree.generateLetter(); // more random letters generated
 				basket.render(g); // basket is drawn
+				
+				g.drawString(Integer.toString(scoreMinimum), 0, screenHeight);
 
 				if (tree.getLettersGenerated() >= tree.getLevelCap()) {
-					if (stageScore < 30) { // if you haven't reached this score by a time, you're out
+					if (stageScore < scoreMinimum) { // if you haven't reached this score by a time, you're out
 						gracePeriod--; // keeps track of how long you have until game over
 						if (gracePeriod == 0) {
 							state = State.GAMEOVER;
@@ -99,6 +102,7 @@ public class Driver extends JPanel implements ActionListener {
 						g.setColor(Color.BLACK);
 						g.drawString("THE NEXT MONTH ARRIVES", 365, 450); // getting to the next level yay!
 						if (gracePeriod == 0) {
+							scoreMinimum += 30;
 							tree.addSeasonState();
 							tree.setLettersGenerated(0);
 							gracePeriod = 240;
