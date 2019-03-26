@@ -65,6 +65,12 @@ public class Driver extends JPanel implements ActionListener {
 				g.setFont(new Font("Helvetica", Font.PLAIN, 30));
 				g.setColor(Color.BLACK);
 				g.drawString("ALL GOOD THINGS MUST COME TO AN END", 300, 700);
+				play.render(g);
+				if (play.clicked(click)) {
+					state = State.GAME;
+					tree.setLettersGenerated(0);
+					scoreMinimum = 30;
+				}
 			} else {
 				if (input.getLeft()) { // based on mouse clicks, actions performed
 					stageScore += tree.submit();
