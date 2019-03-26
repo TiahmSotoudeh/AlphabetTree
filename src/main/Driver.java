@@ -88,7 +88,7 @@ public class Driver extends JPanel implements ActionListener {
 				basket.render(g); // basket is drawn
 
 				if (tree.getLettersGenerated() >= tree.getLevelCap()) {
-					if (stageScore < 10) { // if you haven't reached this score by a time, you're out
+					if (stageScore < 30) { // if you haven't reached this score by a time, you're out
 						gracePeriod--; // keeps track of how long you have until game over
 						if (gracePeriod == 0) {
 							state = State.GAMEOVER;
